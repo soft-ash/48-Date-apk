@@ -1,115 +1,138 @@
 import 'package:flutter/material.dart';
+
 import '../constant/colors.dart';
+import '../utils/screen_utils.dart';
 
 class CustomButton extends StatelessWidget {
-  final String text;
-  final VoidCallback? onPressed;
-  final bool isOutlined;
-  final List<Color>? gradientColors;
-  final Color? backgroundColor;
-  final Color? textColor;
-  final IconData? suffixIcon;
-
   const CustomButton({
     super.key,
     required this.text,
     this.onPressed,
-    this.isOutlined = false,
-    this.gradientColors,
-    this.backgroundColor,
-    this.textColor,
-    this.suffixIcon,
+    this.width = double.infinity,
+    this.height = 52,
+    this.radius = 100,
+    this.padding,
+    this.gradient,
+    this.color,
+    this.border,
+    this.textColor = Colors.white,
+    this.icon,
+    this.elevation = 0,
+    this.textStyle,
   });
+
+  const CustomButton.outlined({
+    super.key,
+    required this.text,
+    this.onPressed,
+    this.width = double.infinity,
+    this.height = 52,
+    this.radius = 100,
+    this.padding,
+    this.textColor = AppColor.primary500,
+    this.icon,
+    this.elevation = 0,
+    this.textStyle,
+    this.border = const Border.fromBorderSide(
+      BorderSide(color: AppColor.primary500, width: 1.5),
+    ),
+  }) : color = Colors.transparent,
+       gradient = null;
+
+  final String text;
+  final VoidCallback? onPressed;
+
+  final double width;
+  final double height;
+  final double radius;
+  final double elevation;
+
+  final EdgeInsetsGeometry? padding;
+
+  /// Solid background color
+  final Color? color;
+
+  /// Gradient background
+  final Gradient? gradient;
+
+  /// Optional border
+  final Border? border;
+
+  final Color textColor;
+
+  final Widget? icon;
+
+  final TextStyle? textStyle;
+
+  bool get _isDisabled => onPressed == null;
 
   @override
   Widget build(BuildContext context) {
-    // 1. Determine State
-    final bool isDisabled = onPressed == null;
+    final borderRadius = BorderRadius.circular(radius.r);
 
-    // 2. Set Default Colors (Now properly using AppColor!)
-    final Color defaultColor = backgroundColor ?? AppColor.primary500;
-
-    // Determine the color of the text and icon based on the button style
-    final Color contentColor =
-        textColor ?? (isOutlined ? defaultColor : Colors.white);
-
-    // 3. Build Box Decoration
-    BoxDecoration decoration;
-    if (isOutlined) {
-      decoration = BoxDecoration(
+    return SizedBox(
+      width: width == double.infinity ? double.infinity : width.w,
+      height: height.h,
+      child: Material(
         color: Colors.transparent,
-        borderRadius: BorderRadius.circular(100),
-        border: Border.all(
-          color: isDisabled
-              ? AppColor.gray400
-              : defaultColor, // Using AppColor for disabled state too
-          width: 1.5,
-        ),
-      );
-    } else if (gradientColors != null) {
-      decoration = BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
-        gradient: LinearGradient(
-          colors: isDisabled
-              ? [AppColor.primary500, AppColor.primary400]
-              : gradientColors!,
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        boxShadow: [
-          if (!isDisabled)
-            BoxShadow(
-              color: gradientColors!.first.withValues(alpha: 0.3),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-        ],
-      );
-    } else {
-      decoration = BoxDecoration(
-        color: isDisabled ? AppColor.gray300 : defaultColor,
-        borderRadius: BorderRadius.circular(100),
-      );
-    }
-
-    // 4. Build the Widget
-    return Material(
-      color: Colors.transparent,
-      child: Ink(
-        decoration: decoration,
-        child: InkWell(
-          onTap: onPressed,
-          borderRadius: BorderRadius.circular(100),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 32.0,
-              vertical: 12.0,
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  text,
-                  style: TextStyle(
-                    color: isDisabled && !isOutlined
-                        ? AppColor.gray500
-                        : contentColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+        elevation: elevation,
+        borderRadius: borderRadius,
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: borderRadius,
+            border: border,
+            color: _isDisabled
+                ? AppColor.gray300
+                : gradient == null
+                ? (color ?? AppColor.primary500)
+                : null,
+            gradient: _isDisabled
+                ? null
+                : (gradient ??
+                      const LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [AppColor.primary500, AppColor.primary200],
+                      )),
+          ),
+          child: InkWell(
+            onTap: onPressed,
+            borderRadius: borderRadius,
+            child: Padding(
+              padding: padding ?? EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(
+                    child: Text(
+                      text,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          (textStyle ??
+                                  TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ))
+                              .copyWith(
+                                color: _isDisabled
+                                    ? AppColor.gray500
+                                    : textColor,
+                              ),
+                    ),
                   ),
-                ),
-                if (suffixIcon != null) ...[
-                  const SizedBox(width: 8),
-                  Icon(
-                    suffixIcon,
-                    color: isDisabled && !isOutlined
-                        ? AppColor.gray500
-                        : contentColor,
-                    size: 20,
-                  ),
+                  if (icon != null) ...[
+                    SizedBox(width: 8.w),
+                    IconTheme(
+                      data: IconThemeData(
+                        color: _isDisabled ? AppColor.gray500 : textColor,
+                        size: 20.sp,
+                      ),
+                      child: icon!,
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ),
