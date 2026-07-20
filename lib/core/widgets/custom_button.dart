@@ -16,7 +16,8 @@ class CustomButton extends StatelessWidget {
     this.color,
     this.border,
     this.textColor = Colors.white,
-    this.icon,
+    this.prefixIcon,
+    this.suffixIcon,
     this.elevation = 0,
     this.textStyle,
   });
@@ -30,7 +31,8 @@ class CustomButton extends StatelessWidget {
     this.radius = 100,
     this.padding,
     this.textColor = AppColor.primary500,
-    this.icon,
+    this.prefixIcon,
+    this.suffixIcon,
     this.elevation = 0,
     this.textStyle,
     this.border = const Border.fromBorderSide(
@@ -60,7 +62,8 @@ class CustomButton extends StatelessWidget {
 
   final Color textColor;
 
-  final Widget? icon;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
 
   final TextStyle? textStyle;
 
@@ -104,6 +107,16 @@ class CustomButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  if (prefixIcon != null) ...[
+                    IconTheme(
+                      data: IconThemeData(
+                        color: _isDisabled ? AppColor.gray500 : textColor,
+                        size: 20.sp,
+                      ),
+                      child: prefixIcon!,
+                    ),
+                    SizedBox(width: 8.w),
+                  ],
                   Flexible(
                     child: Text(
                       text,
@@ -121,14 +134,14 @@ class CustomButton extends StatelessWidget {
                               ),
                     ),
                   ),
-                  if (icon != null) ...[
+                  if (suffixIcon != null) ...[
                     SizedBox(width: 8.w),
                     IconTheme(
                       data: IconThemeData(
                         color: _isDisabled ? AppColor.gray500 : textColor,
                         size: 20.sp,
                       ),
-                      child: icon!,
+                      child: suffixIcon!,
                     ),
                   ],
                 ],
@@ -140,3 +153,4 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
+

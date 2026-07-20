@@ -5,4 +5,5 @@ class AppIcons {
   AppIcons._();
 
   static const String splash = 'assets/icons/splash.png';
+  static const String google = 'assets/icons/google.png';
 }
