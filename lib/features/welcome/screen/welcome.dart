@@ -7,6 +7,7 @@ import 'package:donnymaestro/core/utils/screen_utils.dart';
 import 'package:donnymaestro/core/widgets/custom_button.dart';
 import 'package:donnymaestro/core/widgets/fade_in_up.dart';
 import 'package:donnymaestro/features/welcome/controller/welcome_controller.dart';
+import 'package:donnymaestro/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -109,7 +110,9 @@ class Welcome extends StatelessWidget {
                                 color: AppColor.gray25,
                                 size: 20.sp,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed(AppRoutes.phone);
+                              },
                             ),
                           ),
                           SizedBox(height: 10.h),
