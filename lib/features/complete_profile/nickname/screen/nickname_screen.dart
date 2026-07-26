@@ -72,7 +72,7 @@ class NicknameScreen extends StatelessWidget {
                           FadeInUp(
                             delay: const Duration(milliseconds: 400),
                             child: CustomButton(
-                              text: 'Continue ->',
+                              text: 'Continue',
                               onPressed: controller.onContinuePressed,
                             ),
                           ),

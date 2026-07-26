@@ -27,7 +27,6 @@ class NicknameController extends GetxController {
   void onSuggestionSelected(String suggestion) {
     nicknameController.text = suggestion;
     errorText.value = null;
-    AppLogger.info("Selected nickname suggestion: $suggestion");
   }
 
   Future<void> onContinuePressed() async {
@@ -44,14 +43,11 @@ class NicknameController extends GetxController {
     }
 
     errorText.value = null;
-    AppLogger.info('Saving nickname: $name');
-    AppLogger.loading(status: 'Saving...');
 
     try {
       await Future.delayed(const Duration(milliseconds: 600));
       AppLogger.dismiss();
       commonController.setNickname(name);
-      AppLogger.success('Nickname saved!');
       Get.toNamed(AppRoutes.realName);
     } catch (e) {
       AppLogger.dismiss();

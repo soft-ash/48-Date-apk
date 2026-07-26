@@ -86,6 +86,42 @@ class CompleteProfileController extends GetxController {
   }
 
   // ==========================================
+  // 5. Additional Onboarding Step Variables
+  // ==========================================
+  final RxnString smokingHabit = RxnString();
+  final RxnString drinkingHabit = RxnString();
+  final RxnString genderIdentity = RxnString();
+  final RxnString haveKids = RxnString();
+  final RxnString futureKidsPlan = RxnString();
+  final RxnString whoToMeet = RxnString();
+
+  void setSmokingHabit(String value) {
+    smokingHabit.value = value;
+    AppLogger.consoleInfo(title: "setSmokingHabit", subtitle: "Stored: $value");
+  }
+
+  void setDrinkingHabit(String value) {
+    drinkingHabit.value = value;
+    AppLogger.consoleInfo(title: "setDrinkingHabit", subtitle: "Stored: $value");
+  }
+
+  void setGenderIdentity(String value) {
+    genderIdentity.value = value;
+    AppLogger.consoleInfo(title: "setGenderIdentity", subtitle: "Stored: $value");
+  }
+
+  void setKidsInfo({required String kids, required String plan}) {
+    haveKids.value = kids;
+    futureKidsPlan.value = plan;
+    AppLogger.consoleInfo(title: "setKidsInfo", subtitle: "Kids: $kids, Plan: $plan");
+  }
+
+  void setWhoToMeet(String value) {
+    whoToMeet.value = value;
+    AppLogger.consoleInfo(title: "setWhoToMeet", subtitle: "Stored: $value");
+  }
+
+  // ==========================================
   // 5. Unified API Submission
   // ==========================================
   Future<void> submitCompleteProfile() async {
@@ -101,6 +137,12 @@ class CompleteProfileController extends GetxController {
       'birth_year': birthYear.value,
       'age': calculatedAge.value,
       'occupation': occupation.value,
+      'smoking_habit': smokingHabit.value,
+      'drinking_habit': drinkingHabit.value,
+      'gender_identity': genderIdentity.value,
+      'have_kids': haveKids.value,
+      'future_kids_plan': futureKidsPlan.value,
+      'who_to_meet': whoToMeet.value,
       // Future fields will be added here
     };
 

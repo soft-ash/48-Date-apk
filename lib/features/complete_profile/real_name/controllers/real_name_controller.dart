@@ -21,7 +21,7 @@ class RealNameController extends GetxController {
     super.onClose();
   }
 
-  Future<void> onContinuePressed() async {
+  void onContinuePressed() {
     final first = firstNameController.text.trim();
     final last = lastNameController.text.trim();
 
@@ -47,7 +47,6 @@ class RealNameController extends GetxController {
     }
 
     commonController.setRealName(first, last);
-    AppLogger.success('Real name saved!');
     Get.toNamed(AppRoutes.birthdayOccupation);
   }
 }

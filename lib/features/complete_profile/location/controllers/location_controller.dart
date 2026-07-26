@@ -58,7 +58,6 @@ class LocationController extends GetxController {
       );
       // Store in Common Controller for final API body
       commonController.setLocation(position.latitude, position.longitude);
-      AppLogger.success('Location set successfully!');
       Get.toNamed(AppRoutes.nickname);
     } catch (e) {
       AppLogger.dismiss();

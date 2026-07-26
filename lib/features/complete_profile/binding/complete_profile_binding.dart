@@ -4,6 +4,11 @@ import 'package:donnymaestro/features/complete_profile/location/controllers/loca
 import 'package:donnymaestro/features/complete_profile/nickname/controllers/nickname_controller.dart';
 import 'package:donnymaestro/features/complete_profile/real_name/controllers/real_name_controller.dart';
 import 'package:donnymaestro/features/complete_profile/birthday_&_ocupation/controllers/birthday_occupation_controller.dart';
+import 'package:donnymaestro/features/complete_profile/did_smoke/controllers/did_smoke_controller.dart';
+import 'package:donnymaestro/features/complete_profile/did_drink/controllers/did_drink_controller.dart';
+import 'package:donnymaestro/features/complete_profile/identify/controllers/identify_controller.dart';
+import 'package:donnymaestro/features/complete_profile/have_kids/controllers/have_kids_controller.dart';
+import 'package:donnymaestro/features/complete_profile/who_to_meet/controllers/who_to_meet_controller.dart';
 
 class CompleteProfileBinding extends Bindings {
   @override
@@ -16,5 +21,10 @@ class CompleteProfileBinding extends Bindings {
     Get.lazyPut(() => NicknameController(), fenix: true);
     Get.lazyPut(() => RealNameController(), fenix: true);
     Get.lazyPut(() => BirthdayOccupationController(), fenix: true);
+    Get.lazyPut(() => DidSmokeController(), fenix: true);
+    Get.lazyPut(() => DidDrinkController(), fenix: true);
+    Get.lazyPut(() => IdentifyController(), fenix: true);
+    Get.lazyPut(() => HaveKidsController(), fenix: true);
+    Get.lazyPut(() => WhoToMeetController(), fenix: true);
   }
 }

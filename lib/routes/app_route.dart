@@ -3,6 +3,11 @@ import 'package:donnymaestro/features/complete_profile/location/screen/location_
 import 'package:donnymaestro/features/complete_profile/nickname/screen/nickname_screen.dart';
 import 'package:donnymaestro/features/complete_profile/real_name/screen/real_name_screen.dart';
 import 'package:donnymaestro/features/complete_profile/birthday_&_ocupation/screen/birthday_occupation_screen.dart';
+import 'package:donnymaestro/features/complete_profile/did_smoke/screen/did_smoke_screen.dart';
+import 'package:donnymaestro/features/complete_profile/did_drink/screen/did_drink_screen.dart';
+import 'package:donnymaestro/features/complete_profile/identify/screen/identify_screen.dart';
+import 'package:donnymaestro/features/complete_profile/have_kids/screen/have_kids_screen.dart';
+import 'package:donnymaestro/features/complete_profile/who_to_meet/screen/who_to_meet_screen.dart';
 import 'package:donnymaestro/features/complete_profile/binding/complete_profile_binding.dart';
 import 'package:donnymaestro/features/welcome/screen/welcome.dart';
 import 'package:donnymaestro/features/splash/screens/splash_screen.dart';
@@ -32,6 +37,31 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: AppRoutes.birthdayOccupation,
       page: () => const BirthdayOccupationScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.didSmoke,
+      page: () => const DidSmokeScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.didDrink,
+      page: () => const DidDrinkScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.identify,
+      page: () => const IdentifyScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.haveKids,
+      page: () => const HaveKidsScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.whoToMeet,
+      page: () => const WhoToMeetScreen(),
       binding: CompleteProfileBinding(),
     ),
   ];

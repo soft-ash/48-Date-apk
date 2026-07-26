@@ -64,7 +64,7 @@ class BirthdayOccupationScreen extends StatelessWidget {
                           FadeInUp(
                             delay: const Duration(milliseconds: 300),
                             child: CustomButton(
-                              text: 'Continue ->',
+                              text: 'Continue',
                               onPressed: controller.onContinuePressed,
                             ),
                           ),

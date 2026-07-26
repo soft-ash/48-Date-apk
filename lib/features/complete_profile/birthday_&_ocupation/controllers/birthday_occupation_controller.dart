@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:donnymaestro/core/logger/logger.dart';
 import 'package:donnymaestro/core/utils/picker.dart';
 import 'package:donnymaestro/features/complete_profile/common_controller/complete_profile_controller.dart';
+import 'package:donnymaestro/routes/app_routes.dart';
 
 class BirthdayOccupationController extends GetxController {
   final TextEditingController monthController = TextEditingController();
@@ -66,15 +67,25 @@ class BirthdayOccupationController extends GetxController {
     }
   }
 
-  Future<void> onBirthdayCalendarTapped(BuildContext context) async {
-    final selectedDate = await AppPicker.showBirthDatePicker(context);
+  Future<void> openWheelDatePicker(BuildContext context) async {
+    DateTime? initialDate;
+    try {
+      final int m = int.parse(monthController.text);
+      final int d = int.parse(dayController.text);
+      final int y = int.parse(yearController.text);
+      initialDate = DateTime(y, m, d);
+    } catch (_) {
+      initialDate = null;
+    }
+
+    final selectedDate = await AppPicker.showWheelDatePicker(context, initialDate: initialDate);
     if (selectedDate != null) {
       monthController.text = selectedDate.month.toString().padLeft(2, '0');
       dayController.text = selectedDate.day.toString().padLeft(2, '0');
       yearController.text = selectedDate.year.toString();
       birthdayError.value = null;
       AppLogger.consoleInfo(
-        title: "onBirthdayCalendarTapped",
+        title: "openWheelDatePicker",
         subtitle: "Selected date: ${monthController.text}/${dayController.text}/${yearController.text}",
       );
     }
@@ -96,7 +107,7 @@ class BirthdayOccupationController extends GetxController {
     }
   }
 
-  Future<void> onContinuePressed() async {
+  void onContinuePressed() {
     final monthStr = monthController.text.trim();
     final dayStr = dayController.text.trim();
     final yearStr = yearController.text.trim();
@@ -159,7 +170,6 @@ class BirthdayOccupationController extends GetxController {
       job: job,
     );
 
-    AppLogger.success('Birthday & occupation saved!');
-    // TODO: Navigate to next onboarding screen when created
+    Get.toNamed(AppRoutes.didSmoke);
   }
 }

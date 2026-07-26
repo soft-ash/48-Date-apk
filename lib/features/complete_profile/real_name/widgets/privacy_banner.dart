@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/constant/colors.dart';
 import '../../../../../core/font/style/text_style.dart';
 import '../../../../../core/utils/screen_utils.dart';
+import '../../../../core/constant/icons.dart';
 
 class PrivacyBanner extends StatelessWidget {
   const PrivacyBanner({super.key});
@@ -11,7 +12,7 @@ class PrivacyBanner extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.lock_outline, color: AppColor.primary500, size: 20.sp),
+        Image.asset(AppIcons.lock, color: AppColor.primary500, width: 20.sp),
         SizedBox(width: 12.w),
         Expanded(
           child: Text(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
 import 'package:donnymaestro/core/font/style/text_style.dart';
@@ -16,20 +15,10 @@ class BirthdaySection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'When’s Your Birthday?',
-              style: AppTextStyle.h5(weight: AppTextStyle.bold)
-                  .copyWith(color: AppColor.gray900),
-            ),
-            IconButton(
-              onPressed: () => controller.onBirthdayCalendarTapped(context),
-              icon: const Icon(Icons.calendar_month_outlined, color: AppColor.primary500),
-              tooltip: "Pick from calendar",
-            ),
-          ],
+        Text(
+          'When’s Your Birthday?',
+          style: AppTextStyle.h5(weight: AppTextStyle.bold)
+              .copyWith(color: AppColor.gray900),
         ),
         SizedBox(height: 8.h),
         Text(
@@ -51,10 +40,8 @@ class BirthdaySection extends StatelessWidget {
                       label: 'Month',
                       hint: '06',
                       controller: controller.monthController,
-                      focusNode: controller.monthFocus,
-                      onChanged: controller.onMonthChanged,
-                      maxLength: 2,
                       hasError: hasError,
+                      onTap: () => controller.openWheelDatePicker(context),
                     ),
                   ),
                   SizedBox(width: 12.w),
@@ -64,10 +51,8 @@ class BirthdaySection extends StatelessWidget {
                       label: 'Day',
                       hint: '06',
                       controller: controller.dayController,
-                      focusNode: controller.dayFocus,
-                      onChanged: controller.onDayChanged,
-                      maxLength: 2,
                       hasError: hasError,
+                      onTap: () => controller.openWheelDatePicker(context),
                     ),
                   ),
                   SizedBox(width: 12.w),
@@ -77,10 +62,8 @@ class BirthdaySection extends StatelessWidget {
                       label: 'Year',
                       hint: '1997',
                       controller: controller.yearController,
-                      focusNode: controller.yearFocus,
-                      onChanged: controller.onYearChanged,
-                      maxLength: 4,
                       hasError: hasError,
+                      onTap: () => controller.openWheelDatePicker(context),
                     ),
                   ),
                 ],
@@ -115,10 +98,8 @@ class BirthdaySection extends StatelessWidget {
     required String label,
     required String hint,
     required TextEditingController controller,
-    required FocusNode focusNode,
-    required Function(String) onChanged,
-    required int maxLength,
     required bool hasError,
+    required VoidCallback onTap,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,33 +113,33 @@ class BirthdaySection extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8.h),
-        TextFormField(
-          controller: controller,
-          focusNode: focusNode,
-          keyboardType: TextInputType.number,
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-            LengthLimitingTextInputFormatter(maxLength),
-          ],
-          onChanged: onChanged,
-          style: const TextStyle(fontSize: 14, color: AppColor.gray900),
-          decoration: InputDecoration(
-            hintText: hint,
-            hintStyle: const TextStyle(color: AppColor.gray400, fontSize: 14),
-            contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-            enabledBorder: OutlineInputBorder(
+        GestureDetector(
+          onTap: onTap,
+          behavior: HitTestBehavior.opaque,
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            decoration: BoxDecoration(
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8.r),
-              borderSide: BorderSide(
+              border: Border.all(
                 color: hasError ? AppColor.error500 : AppColor.gray300,
                 width: 1,
               ),
             ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.r),
-              borderSide: BorderSide(
-                color: hasError ? AppColor.error500 : AppColor.gray600,
-                width: 1,
-              ),
+            child: ValueListenableBuilder<TextEditingValue>(
+              valueListenable: controller,
+              builder: (context, val, child) {
+                final text = val.text;
+                final isEmpty = text.isEmpty;
+                return Text(
+                  isEmpty ? hint : text,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: isEmpty ? AppColor.gray400 : AppColor.gray900,
+                  ),
+                );
+              },
             ),
           ),
         ),

@@ -6,4 +6,9 @@ abstract final class AppRoutes {
   static const nickname = '/nickname';
   static const realName = '/real-name';
   static const birthdayOccupation = '/birthday-occupation';
+  static const didSmoke = '/did-smoke';
+  static const didDrink = '/did-drink';
+  static const identify = '/identify';
+  static const haveKids = '/have-kids';
+  static const whoToMeet = '/who-to-meet';
 }
