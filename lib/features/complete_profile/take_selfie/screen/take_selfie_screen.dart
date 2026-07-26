@@ -72,7 +72,9 @@ class TakeSelfieScreen extends StatelessWidget {
                                 width: 260.w,
                                 height: 260.w,
                                 decoration: BoxDecoration(
-                                  color: AppColor.primary500.withValues(alpha: 0.08),
+                                  color: AppColor.primary500.withValues(
+                                    alpha: 0.08,
+                                  ),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Center(
@@ -103,7 +105,7 @@ class TakeSelfieScreen extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8.h),
                                 CustomButton(
-                                  text: 'Verify ->',
+                                  text: 'Verify',
                                   onPressed: controller.openPoseCamera,
                                 ),
                               ],

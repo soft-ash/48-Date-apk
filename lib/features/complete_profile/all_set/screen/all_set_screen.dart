@@ -41,11 +41,12 @@ class AllSetScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     CustomHeader(
-                      title: 'You’re all set!',
+                      title: "You're all set!",
                       subtitle:
                           'Your profile is live and verified. Time to find someone worth 48 hours.',
-                      titleStyle: AppTextStyle.h4(weight: AppTextStyle.bold)
-                          .copyWith(color: AppColor.gray900),
+                      titleStyle: AppTextStyle.h5(
+                        weight: AppTextStyle.bold,
+                      ).copyWith(color: AppColor.gray900),
                       textAlign: TextAlign.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                     ),

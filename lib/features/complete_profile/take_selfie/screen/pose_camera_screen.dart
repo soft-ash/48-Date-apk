@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
-import 'package:donnymaestro/core/font/style/text_style.dart';
+import 'package:donnymaestro/core/constant/images.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
-import 'package:donnymaestro/core/widgets/custom_button.dart';
-import 'package:donnymaestro/core/widgets/fade_in_up.dart';
-import 'package:donnymaestro/core/widgets/custom_header.dart';
 import '../controllers/take_selfie_controller.dart';
+import '../widgets/pose_bottom_card.dart';
+import '../widgets/scan_line_overlay.dart';
 
 class PoseCameraScreen extends StatelessWidget {
   const PoseCameraScreen({super.key});
@@ -20,87 +19,30 @@ class PoseCameraScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Simulated camera viewfinder background for pose matching
-          Container(
-            color: const Color(0xFF1E1E24),
-            child: Center(
-              child: Container(
-                width: 260.w,
-                height: 360.h,
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColor.primary500.withValues(alpha: 0.6), width: 2),
-                  borderRadius: BorderRadius.circular(160.r),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.person_outline,
-                    size: 140.sp,
-                    color: Colors.white.withValues(alpha: 0.3),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          // Top AppBar with Back Button
+          Image.asset(AppImages.faceScanBg, fit: BoxFit.cover),
+          const ScanLineOverlay(),
           SafeArea(
             child: Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: EdgeInsets.only(left: 8.w, top: 8.h),
+                padding: EdgeInsets.only(left: 12.w, top: 8.h),
                 child: CircleAvatar(
-                  backgroundColor: Colors.black.withValues(alpha: 0.4),
+                  backgroundColor: AppColor.gray950.withValues(alpha: 0.35),
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 18),
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.white,
+                      size: 18,
+                    ),
                     onPressed: () => Get.back(),
                   ),
                 ),
               ),
             ),
           ),
-          // Bottom Pose Instruction Card
           Align(
             alignment: Alignment.bottomCenter,
-            child: SafeArea(
-              child: FadeInUp(
-                delay: const Duration(milliseconds: 150),
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-                  padding: EdgeInsets.all(24.w),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFDECEF), // Light pink/cream background from mockup
-                    borderRadius: BorderRadius.circular(24.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.15),
-                        blurRadius: 20,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const CustomHeader(
-                        title: 'Pose',
-                      ),
-                      SizedBox(height: 8.h),
-                      Text(
-                        'Copy this pose as accurately as possible.',
-                        style: AppTextStyle.bodySmall(
-                          weight: AppTextStyle.regular,
-                        ).copyWith(color: AppColor.gray700, height: 1.4),
-                      ),
-                      SizedBox(height: 24.h),
-                      CustomButton(
-                        text: 'Continue',
-                        onPressed: controller.takePictureAndVerify,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            child: PoseBottomCard(onContinue: controller.takePictureAndVerify),
           ),
         ],
       ),

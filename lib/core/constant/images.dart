@@ -4,4 +4,5 @@ class AppImages {
   static const String background = 'assets/images/background.png';
   static const String welcomeImage = 'assets/images/welcome.png';
   static const String set = 'assets/images/set.png';
+  static const String faceScanBg = 'assets/images/pose.png';
 }

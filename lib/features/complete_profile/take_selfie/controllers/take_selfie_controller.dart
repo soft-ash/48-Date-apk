@@ -7,6 +7,9 @@ import 'package:donnymaestro/routes/app_routes.dart';
 class TakeSelfieController extends GetxController {
   final ImagePicker _picker = ImagePicker();
 
+  /// Captured selfie path — stored for future backend submission.
+  final Rxn<String> capturedImagePath = Rxn<String>();
+
   CompleteProfileController get commonController =>
       Get.find<CompleteProfileController>();
 
@@ -26,25 +29,15 @@ class TakeSelfieController extends GetxController {
         preferredCameraDevice: CameraDevice.front,
         imageQuality: 80,
       );
-
-      if (photo != null) {
-        commonController.setSelfie(photo.path);
-        Get.toNamed(AppRoutes.complete);
-      } else {
-        // If user cancelled camera on device, or running on simulator without camera,
-        // we can still proceed to complete screen for testing if needed or just log
-        AppLogger.consoleInfo(
-          title: "takePictureAndVerify",
-          subtitle: "Camera cancelled or not available. Proceeding with demo path for testing.",
-        );
-        commonController.setSelfie("demo_selfie_verified.jpg");
-        Get.toNamed(AppRoutes.complete);
-      }
+      capturedImagePath.value =
+          photo?.path ?? 'demo_selfie_verified.jpg';
     } catch (e) {
-      AppLogger.error("Failed to capture selfie: $e");
-      // Fallback for emulator / testing environment without working camera hardware
-      commonController.setSelfie("demo_selfie_verified.jpg");
-      Get.toNamed(AppRoutes.complete);
+      AppLogger.error('Failed to capture selfie: $e');
+      capturedImagePath.value = 'demo_selfie_verified.jpg';
     }
+
+    commonController.setSelfie(
+        capturedImagePath.value ?? 'demo_selfie_verified.jpg');
+    Get.toNamed(AppRoutes.complete);
   }
 }
