@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/logger/logger.dart';
 import 'package:donnymaestro/features/complete_profile/common_controller/complete_profile_controller.dart';
+import 'package:donnymaestro/routes/app_routes.dart';
 
 class RealNameController extends GetxController {
   final TextEditingController firstNameController = TextEditingController();
@@ -25,6 +26,7 @@ class RealNameController extends GetxController {
     final last = lastNameController.text.trim();
 
     bool hasError = false;
+
     if (first.isEmpty) {
       firstNameError.value = 'Please enter your first name';
       hasError = true;
@@ -46,6 +48,6 @@ class RealNameController extends GetxController {
 
     commonController.setRealName(first, last);
     AppLogger.success('Real name saved!');
-    // TODO: Navigate to next onboarding screen when created (e.g., Get.toNamed(AppRoutes.birthday);)
+    Get.toNamed(AppRoutes.birthdayOccupation);
   }
 }

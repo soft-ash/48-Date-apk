@@ -5,4 +5,5 @@ abstract final class AppRoutes {
   static const location = '/location';
   static const nickname = '/nickname';
   static const realName = '/real-name';
+  static const birthdayOccupation = '/birthday-occupation';
 }

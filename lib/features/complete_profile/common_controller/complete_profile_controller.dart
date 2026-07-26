@@ -58,9 +58,32 @@ class CompleteProfileController extends GetxController {
   }
 
   // ==========================================
-  // 4. Future Profile Fields (Ready for API)
+  // 4. Birthday & Occupation Step Variables
   // ==========================================
-  // Add future onboarding fields here (e.g. birthday, gender, bio, avatarUrl)
+  final RxnString birthMonth = RxnString();
+  final RxnString birthDay = RxnString();
+  final RxnString birthYear = RxnString();
+  final RxInt calculatedAge = 0.obs;
+  final RxString occupation = ''.obs;
+
+  void setBirthdayAndOccupation({
+    required String month,
+    required String day,
+    required String year,
+    required int age,
+    required String job,
+  }) {
+    birthMonth.value = month;
+    birthDay.value = day;
+    birthYear.value = year;
+    calculatedAge.value = age;
+    occupation.value = job;
+    AppLogger.consoleInfo(
+      title: "setBirthdayAndOccupation",
+      subtitle:
+          "CommonController: Stored birthday ($month/$day/$year, Age: $age) & occupation ($job)",
+    );
+  }
 
   // ==========================================
   // 5. Unified API Submission
@@ -73,6 +96,11 @@ class CompleteProfileController extends GetxController {
       'nickname': nickname.value,
       'first_name': firstName.value,
       'last_name': lastName.value,
+      'birth_month': birthMonth.value,
+      'birth_day': birthDay.value,
+      'birth_year': birthYear.value,
+      'age': calculatedAge.value,
+      'occupation': occupation.value,
       // Future fields will be added here
     };
 

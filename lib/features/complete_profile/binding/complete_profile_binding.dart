@@ -3,6 +3,7 @@ import 'package:donnymaestro/features/complete_profile/common_controller/complet
 import 'package:donnymaestro/features/complete_profile/location/controllers/location_controller.dart';
 import 'package:donnymaestro/features/complete_profile/nickname/controllers/nickname_controller.dart';
 import 'package:donnymaestro/features/complete_profile/real_name/controllers/real_name_controller.dart';
+import 'package:donnymaestro/features/complete_profile/birthday_&_ocupation/controllers/birthday_occupation_controller.dart';
 
 class CompleteProfileBinding extends Bindings {
   @override
@@ -14,5 +15,6 @@ class CompleteProfileBinding extends Bindings {
     Get.lazyPut(() => LocationController(), fenix: true);
     Get.lazyPut(() => NicknameController(), fenix: true);
     Get.lazyPut(() => RealNameController(), fenix: true);
+    Get.lazyPut(() => BirthdayOccupationController(), fenix: true);
   }
 }
