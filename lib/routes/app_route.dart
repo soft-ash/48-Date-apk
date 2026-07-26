@@ -17,6 +17,8 @@ import 'package:donnymaestro/features/complete_profile/take_selfie/screen/take_s
 import 'package:donnymaestro/features/complete_profile/take_selfie/screen/pose_camera_screen.dart';
 import 'package:donnymaestro/features/complete_profile/complete/screen/complete_verification_screen.dart';
 import 'package:donnymaestro/features/complete_profile/turn_on_notification/screen/turn_on_notification_screen.dart';
+import 'package:donnymaestro/features/bottom_navbar/binding/bottom_navbar_binding.dart';
+import 'package:donnymaestro/features/bottom_navbar/screens/bottom_navbar_screen.dart';
 import 'package:donnymaestro/features/complete_profile/all_set/screen/all_set_screen.dart';
 import 'package:donnymaestro/features/complete_profile/binding/complete_profile_binding.dart';
 import 'package:donnymaestro/features/welcome/screen/welcome.dart';
@@ -123,6 +125,11 @@ abstract final class AppPages {
       name: AppRoutes.allSet,
       page: () => const AllSetScreen(),
       binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.bottomNavbar,
+      page: () => const BottomNavbarScreen(),
+      binding: BottomNavbarBinding(),
     ),
   ];
 }

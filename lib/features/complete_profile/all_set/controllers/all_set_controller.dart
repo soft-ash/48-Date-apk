@@ -8,7 +8,7 @@ class AllSetController extends GetxController {
       title: "startDiscovering",
       subtitle: "User completed profile onboarding and entered discovery mode",
     );
-    // Navigate to Home or Discovery screen (falling back to Welcome if Home is not created yet)
-    Get.offAllNamed(AppRoutes.welcome);
+    // Navigate to Bottom Navbar (Discovery mode)
+    Get.offAllNamed(AppRoutes.bottomNavbar);
   }
 }

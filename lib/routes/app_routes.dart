@@ -21,4 +21,5 @@ abstract final class AppRoutes {
   static const complete = '/complete';
   static const turnOnNotification = '/turn-on-notification';
   static const allSet = '/all-set';
+  static const bottomNavbar = '/bottom-navbar';
 }
