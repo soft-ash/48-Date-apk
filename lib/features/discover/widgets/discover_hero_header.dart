@@ -5,6 +5,7 @@ import 'package:donnymaestro/core/constant/icons.dart';
 import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import '../model/discover_user_model.dart';
+import 'discover_full_image_view.dart';
 
 class DiscoverHeroHeader extends StatelessWidget {
   final DiscoverUserModel user;
@@ -13,11 +14,19 @@ class DiscoverHeroHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(24.r),
-      child: Stack(
-        children: [
-          AspectRatio(
+    return GestureDetector(
+      onTap: () {
+        final List<String> allImages = [
+          user.profileImage,
+          ...user.postImages,
+        ];
+        DiscoverFullImageView.show(allImages, initialIndex: 0);
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24.r),
+        child: Stack(
+          children: [
+            AspectRatio(
             aspectRatio: 3 / 4,
             child: CachedNetworkImage(
               imageUrl: user.profileImage,
@@ -117,6 +126,7 @@ class DiscoverHeroHeader extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 
