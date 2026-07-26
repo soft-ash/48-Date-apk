@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
 import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
+import 'package:donnymaestro/core/widgets/custom_header.dart';
 import '../controllers/birthday_occupation_controller.dart';
 
 class OccupationSection extends StatelessWidget {
@@ -15,9 +16,9 @@ class OccupationSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'What is Your Occupation?',
-          style: AppTextStyle.h6(weight: AppTextStyle.bold)
+        CustomHeader(
+          title: 'What is Your Occupation?',
+          titleStyle: AppTextStyle.h6(weight: AppTextStyle.bold)
               .copyWith(color: AppColor.gray900),
         ),
         SizedBox(height: 16.h),

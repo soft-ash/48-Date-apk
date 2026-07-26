@@ -5,6 +5,7 @@ import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import 'package:donnymaestro/core/widgets/custom_button.dart';
 import 'package:donnymaestro/core/widgets/fade_in_up.dart';
+import 'package:donnymaestro/core/widgets/custom_header.dart';
 import '../controllers/take_selfie_controller.dart';
 
 class PoseCameraScreen extends StatelessWidget {
@@ -80,11 +81,8 @@ class PoseCameraScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Pose',
-                        style: AppTextStyle.h4(
-                          weight: AppTextStyle.bold,
-                        ).copyWith(color: AppColor.gray900),
+                      const CustomHeader(
+                        title: 'Pose',
                       ),
                       SizedBox(height: 8.h),
                       Text(

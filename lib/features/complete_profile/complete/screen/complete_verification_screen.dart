@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
 import 'package:donnymaestro/core/constant/icons.dart';
-import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/background.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import 'package:donnymaestro/core/widgets/custom_button.dart';
 import 'package:donnymaestro/core/widgets/fade_in_up.dart';
 import 'package:donnymaestro/core/widgets/onboarding_progress_bar.dart';
+import 'package:donnymaestro/core/widgets/custom_header.dart';
 import '../controllers/complete_verification_controller.dart';
 
 class CompleteVerificationScreen extends StatelessWidget {
@@ -55,18 +55,10 @@ class CompleteVerificationScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Complete Verification',
-                                  style: AppTextStyle.h5(
-                                    weight: AppTextStyle.bold,
-                                  ).copyWith(color: AppColor.gray900),
-                                ),
-                                SizedBox(height: 12.h),
-                                Text(
-                                  'Verification successful. Enjoy the full experience.',
-                                  style: AppTextStyle.bodySmall(
-                                    weight: AppTextStyle.regular,
-                                  ).copyWith(color: AppColor.gray700, height: 1.5),
+                                const CustomHeader(
+                                  title: 'Complete Verification',
+                                  subtitle:
+                                      'Verification successful. Enjoy the full experience.',
                                 ),
                               ],
                             ),

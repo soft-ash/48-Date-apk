@@ -4,6 +4,7 @@ import '../../../../core/constant/colors.dart';
 import '../../../../core/font/style/text_style.dart';
 import '../../../../core/utils/screen_utils.dart';
 import '../../../../core/widgets/selection_option_card.dart';
+import '../../../../core/widgets/custom_header.dart';
 import '../controllers/identify_controller.dart';
 
 class IdentifyOptions extends GetView<IdentifyController> {
@@ -14,10 +15,8 @@ class IdentifyOptions extends GetView<IdentifyController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'How Do You Identify?',
-          style: AppTextStyle.h5(weight: AppTextStyle.bold)
-              .copyWith(color: AppColor.gray900),
+        const CustomHeader(
+          title: 'How Do You Identify?',
         ),
         SizedBox(height: 24.h),
         ...controller.options.map((option) {

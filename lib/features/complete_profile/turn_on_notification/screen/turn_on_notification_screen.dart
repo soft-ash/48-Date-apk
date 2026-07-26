@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
 import 'package:donnymaestro/core/constant/icons.dart';
-import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/background.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import 'package:donnymaestro/core/widgets/custom_button.dart';
 import 'package:donnymaestro/core/widgets/fade_in_up.dart';
 import 'package:donnymaestro/core/widgets/onboarding_progress_bar.dart';
+import 'package:donnymaestro/core/widgets/custom_header.dart';
 import '../controllers/turn_on_notification_controller.dart';
 
 class TurnOnNotificationScreen extends StatelessWidget {
@@ -63,22 +63,14 @@ class TurnOnNotificationScreen extends StatelessWidget {
                             delay: const Duration(milliseconds: 150),
                             child: Column(
                               children: [
-                                Text(
-                                  'Turn On Notifications',
-                                  style: AppTextStyle.h5(
-                                    weight: AppTextStyle.bold,
-                                  ).copyWith(color: AppColor.gray900),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(height: 12.h),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 12.w),
-                                  child: Text(
-                                    'Get alerts for new matches and most importantly when a 48-hour timer is running low.',
-                                    style: AppTextStyle.bodySmall(
-                                      weight: AppTextStyle.regular,
-                                    ).copyWith(color: AppColor.gray700, height: 1.5),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  child: CustomHeader(
+                                    title: 'Turn On Notifications',
+                                    subtitle:
+                                        'Get alerts for new matches and most importantly when a 48-hour timer is running low.',
                                     textAlign: TextAlign.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                   ),
                                 ),
                               ],

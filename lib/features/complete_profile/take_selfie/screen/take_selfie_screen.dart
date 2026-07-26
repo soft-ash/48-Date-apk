@@ -8,6 +8,7 @@ import 'package:donnymaestro/core/utils/screen_utils.dart';
 import 'package:donnymaestro/core/widgets/custom_button.dart';
 import 'package:donnymaestro/core/widgets/fade_in_up.dart';
 import 'package:donnymaestro/core/widgets/onboarding_progress_bar.dart';
+import 'package:donnymaestro/core/widgets/custom_header.dart';
 import '../controllers/take_selfie_controller.dart';
 
 class TakeSelfieScreen extends StatelessWidget {
@@ -55,18 +56,10 @@ class TakeSelfieScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Selfie verification',
-                                  style: AppTextStyle.h5(
-                                    weight: AppTextStyle.bold,
-                                  ).copyWith(color: AppColor.gray900),
-                                ),
-                                SizedBox(height: 12.h),
-                                Text(
-                                  'A quick scan confirms you\'re real. Verified profiles get a badge and higher Trust Score.',
-                                  style: AppTextStyle.bodySmall(
-                                    weight: AppTextStyle.regular,
-                                  ).copyWith(color: AppColor.gray700, height: 1.5),
+                                const CustomHeader(
+                                  title: 'Selfie verification',
+                                  subtitle:
+                                      'A quick scan confirms you\'re real. Verified profiles get a badge and higher Trust Score.',
                                 ),
                               ],
                             ),

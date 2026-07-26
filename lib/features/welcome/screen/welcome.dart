@@ -16,6 +16,7 @@ class Welcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppScreenUtil.init(context);
     final controller = Get.put(WelcomeController());
 
     return BaseScreen(

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
 import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
+import 'package:donnymaestro/core/widgets/custom_header.dart';
 import '../controllers/interest_controller.dart';
 
 class InterestOptions extends GetView<InterestController> {
@@ -13,18 +14,10 @@ class InterestOptions extends GetView<InterestController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Your Interests',
-          style: AppTextStyle.h5(
-            weight: AppTextStyle.bold,
-          ).copyWith(color: AppColor.gray900),
-        ),
-        SizedBox(height: 12.h),
-        Text(
-          'Pick up to 5 things you love. It\'ll help you match with people who love them too.',
-          style: AppTextStyle.bodySmall(
-            weight: AppTextStyle.regular,
-          ).copyWith(color: AppColor.gray700, height: 1.5),
+        const CustomHeader(
+          title: 'Your Interests',
+          subtitle:
+              'Pick up to 5 things you love. It\'ll help you match with people who love them too.',
         ),
         SizedBox(height: 24.h),
         ...controller.categorizedInterests.entries.map((entry) {

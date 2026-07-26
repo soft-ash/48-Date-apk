@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
 import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
+import 'package:donnymaestro/core/widgets/custom_header.dart';
 import '../controllers/birthday_occupation_controller.dart';
 
 class BirthdaySection extends StatelessWidget {
@@ -15,15 +16,11 @@ class BirthdaySection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'When’s Your Birthday?',
-          style: AppTextStyle.h5(weight: AppTextStyle.bold)
-              .copyWith(color: AppColor.gray900),
-        ),
-        SizedBox(height: 8.h),
-        Text(
-          'You must be 18+. We show your age, never your exact date.',
-          style: AppTextStyle.bodySmall(weight: AppTextStyle.regular)
+        CustomHeader(
+          title: 'When’s Your Birthday?',
+          subtitle: 'You must be 18+. We show your age, never your exact date.',
+          gap: 8.h,
+          subtitleStyle: AppTextStyle.bodySmall(weight: AppTextStyle.regular)
               .copyWith(color: AppColor.gray600),
         ),
         SizedBox(height: 20.h),

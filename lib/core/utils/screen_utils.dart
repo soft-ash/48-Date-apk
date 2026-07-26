@@ -5,14 +5,20 @@ class AppScreenUtil {
   static const double figmaWidth = 375.0;
   static const double figmaHeight = 812.0;
 
-  static late double screenWidth;
-  static late double screenHeight;
+  static double screenWidth = figmaWidth;
+  static double screenHeight = figmaHeight;
   static bool _isInitialized = false;
 
   /// Call this inside the build method of your first screen or a wrapper widget
   static void init(BuildContext context) {
-    if (_isInitialized) return;
     final size = MediaQuery.of(context).size;
+    // Prevent initializing with 0.0 dimensions during early app startup / builder phase
+    if (size.width == 0 || size.height == 0) return;
+    if (_isInitialized &&
+        screenWidth == size.width &&
+        screenHeight == size.height) {
+      return;
+    }
     screenWidth = size.width;
     screenHeight = size.height;
     _isInitialized = true;

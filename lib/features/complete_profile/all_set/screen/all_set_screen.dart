@@ -7,6 +7,7 @@ import 'package:donnymaestro/core/utils/background.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import 'package:donnymaestro/core/widgets/custom_button.dart';
 import 'package:donnymaestro/core/widgets/fade_in_up.dart';
+import 'package:donnymaestro/core/widgets/custom_header.dart';
 import '../controllers/all_set_controller.dart';
 
 class AllSetScreen extends StatelessWidget {
@@ -39,20 +40,14 @@ class AllSetScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 32.w),
                 child: Column(
                   children: [
-                    Text(
-                      'You’re all set!',
-                      style: AppTextStyle.h4(
-                        weight: AppTextStyle.bold,
-                      ).copyWith(color: AppColor.gray900),
+                    CustomHeader(
+                      title: 'You’re all set!',
+                      subtitle:
+                          'Your profile is live and verified. Time to find someone worth 48 hours.',
+                      titleStyle: AppTextStyle.h4(weight: AppTextStyle.bold)
+                          .copyWith(color: AppColor.gray900),
                       textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: 12.h),
-                    Text(
-                      'Your profile is live and verified. Time to find someone worth 48 hours.',
-                      style: AppTextStyle.bodySmall(
-                        weight: AppTextStyle.regular,
-                      ).copyWith(color: AppColor.gray700, height: 1.5),
-                      textAlign: TextAlign.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                     ),
                   ],
                 ),

@@ -4,6 +4,7 @@ import '../../../../core/constant/colors.dart';
 import '../../../../core/font/style/text_style.dart';
 import '../../../../core/utils/screen_utils.dart';
 import '../../../../core/widgets/selection_option_card.dart';
+import '../../../../core/widgets/custom_header.dart';
 import '../controllers/did_smoke_controller.dart';
 
 class DidSmokeOptions extends GetView<DidSmokeController> {
@@ -14,10 +15,8 @@ class DidSmokeOptions extends GetView<DidSmokeController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Do You Smoke?',
-          style: AppTextStyle.h5(weight: AppTextStyle.bold)
-              .copyWith(color: AppColor.gray900),
+        const CustomHeader(
+          title: 'Do You Smoke?',
         ),
         SizedBox(height: 24.h),
         ...controller.options.map((option) {

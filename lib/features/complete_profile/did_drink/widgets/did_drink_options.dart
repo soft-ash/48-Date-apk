@@ -4,6 +4,7 @@ import '../../../../core/constant/colors.dart';
 import '../../../../core/font/style/text_style.dart';
 import '../../../../core/utils/screen_utils.dart';
 import '../../../../core/widgets/selection_option_card.dart';
+import '../../../../core/widgets/custom_header.dart';
 import '../controllers/did_drink_controller.dart';
 
 class DidDrinkOptions extends GetView<DidDrinkController> {
@@ -14,10 +15,8 @@ class DidDrinkOptions extends GetView<DidDrinkController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Do You Drink Alcohol?',
-          style: AppTextStyle.h5(weight: AppTextStyle.bold)
-              .copyWith(color: AppColor.gray900),
+        const CustomHeader(
+          title: 'Do You Drink Alcohol?',
         ),
         SizedBox(height: 24.h),
         ...controller.options.map((option) {

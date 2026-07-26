@@ -4,6 +4,7 @@ import '../../../../core/constant/colors.dart';
 import '../../../../core/font/style/text_style.dart';
 import '../../../../core/utils/screen_utils.dart';
 import '../../../../core/widgets/selection_option_card.dart';
+import '../../../../core/widgets/custom_header.dart';
 import '../controllers/have_kids_controller.dart';
 
 class HaveKidsOptions extends GetView<HaveKidsController> {
@@ -15,10 +16,8 @@ class HaveKidsOptions extends GetView<HaveKidsController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Section 1: Do You Have Kids?
-        Text(
-          'Do You Have Kids?',
-          style: AppTextStyle.h5(weight: AppTextStyle.bold)
-              .copyWith(color: AppColor.gray900),
+        const CustomHeader(
+          title: 'Do You Have Kids?',
         ),
         SizedBox(height: 20.h),
         ...controller.kidsOptions.map((option) {

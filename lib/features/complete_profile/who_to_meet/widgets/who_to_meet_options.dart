@@ -4,6 +4,7 @@ import '../../../../core/constant/colors.dart';
 import '../../../../core/font/style/text_style.dart';
 import '../../../../core/utils/screen_utils.dart';
 import '../../../../core/widgets/selection_option_card.dart';
+import '../../../../core/widgets/custom_header.dart';
 import '../controllers/who_to_meet_controller.dart';
 
 class WhoToMeetOptions extends GetView<WhoToMeetController> {
@@ -14,10 +15,8 @@ class WhoToMeetOptions extends GetView<WhoToMeetController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Who Are You Here To Meet?',
-          style: AppTextStyle.h5(weight: AppTextStyle.bold)
-              .copyWith(color: AppColor.gray900),
+        const CustomHeader(
+          title: 'Who Are You Here To Meet?',
         ),
         SizedBox(height: 24.h),
         ...controller.options.map((option) {
