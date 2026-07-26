@@ -6,6 +6,7 @@ import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/background.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import 'package:donnymaestro/features/discover/screen/discover_screen.dart';
+import 'package:donnymaestro/features/matches/screens/matches_screen.dart';
 import '../controllers/bottom_navbar_controller.dart';
 import '../widgets/custom_bottom_navbar.dart';
 
@@ -19,7 +20,7 @@ class BottomNavbarScreen extends StatelessWidget {
 
     final List<Widget> screens = [
       const DiscoverScreen(),
-      _buildPlaceholder('Matches', AppIcons.matches),
+      const MatchesScreen(),
       _buildPlaceholder('Chats', AppIcons.chats),
       _buildPlaceholder('Stories', AppIcons.stories),
       _buildPlaceholder('You', AppIcons.you),

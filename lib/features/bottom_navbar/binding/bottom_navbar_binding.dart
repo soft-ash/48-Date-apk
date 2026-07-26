@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:donnymaestro/features/discover/controller/discover_controller.dart';
+import 'package:donnymaestro/features/matches/controllers/matches_controller.dart';
 import '../controllers/bottom_navbar_controller.dart';
 
 class BottomNavbarBinding extends Bindings {
@@ -7,5 +8,7 @@ class BottomNavbarBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<BottomNavbarController>(() => BottomNavbarController());
     Get.lazyPut<DiscoverController>(() => DiscoverController());
+    Get.lazyPut<MatchesController>(() => MatchesController());
   }
 }
+
