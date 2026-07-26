@@ -1,5 +1,11 @@
 
-Never prioritize cleaner code over breaking existing behavior.
+# UNIVERSAL AI & HUMAN SOFTWARE ARCHITECT BIBLE
+
+Flutter Project Engineering Standard, AI Decision Engine, and Architecture Blueprint
+
+This file is the project-specific implementation constitution. It inherits the reasoning, truthfulness, safety, and self-review principles from `.agents/00_AI_OPERATING_SYSTEM.md`. When rules conflict, preserve existing production behavior, security, data integrity, platform compliance, and explicit user requirements in that order; document the decision.
+
+Never prioritize cleaner code over preserving required existing behavior.
 
 ------------------------------------------------------------------------
 
@@ -983,6 +989,40 @@ Support:
 -   Proper fit
 
 Avoid layout shifts while images load.
+
+## Network Image Caching Standard
+
+Remote images must use the project’s centralized cached-network image widget or image service. Do not use a plain uncached network image throughout feature screens when the same image can be reused.
+
+```text
+Image URL received
+  ↓
+Normalize stable URL/cache key
+  ↓
+Check memory/disk cache
+  ├─ Hit → render cached image
+  └─ Miss → fetch once → decode at display size → store cache → render
+       ↓
+Failure → show placeholder/error/retry without infinite refetching
+```
+
+Rules:
+
+- Search `lib/core/widgets`, `lib/core/utils`, and existing image services before creating a new image widget.
+- Prefer an existing approved package such as `cached_network_image` only if it is already installed or its dependency cost has been reviewed; never add multiple image-cache packages.
+- Configure stable cache keys, memory/disk limits, placeholder, error, retry, and expiration behavior in one central place.
+- Do not download the same URL repeatedly because a widget rebuilds. Keep URLs stable and avoid generating changing query parameters unnecessarily.
+- Use `memCacheWidth`/`memCacheHeight`, `cacheWidth`/`cacheHeight`, thumbnails, or server resizing when the displayed size is smaller than the source image.
+- Do not decode a 4K image for a 48-pixel avatar. Match decode size to the largest realistic display size while preserving quality.
+- Reuse cached thumbnails for lists, feeds, stories, maps, and chat; load full-resolution media only for detail or zoom flows.
+- Use stable keys and avoid rebuilding entire image-heavy lists when one item changes.
+- Cancel or ignore stale image requests when list items are recycled or screens are disposed.
+- Do not cache private, expiring, signed, or sensitive images beyond the provider’s allowed lifetime; include authorization safely and never place secrets in URLs or logs.
+- Provide offline behavior from cache where appropriate, but never present stale private content without the correct authorization policy.
+- Evict or invalidate cache entries after user logout, account switch, content deletion, permission change, or known URL/version change.
+- Test cold cache, warm cache, offline mode, failed image, expired URL, large image, rapid scrolling, memory pressure, and logout/account switching.
+
+The goal is fewer network requests, lower decode memory, stable scrolling, and predictable failure behavior—not blindly caching every response forever.
 
 ------------------------------------------------------------------------
 
@@ -2326,6 +2366,674 @@ Never:
 ------------------------------------------------------------------------
 
 # Completion Statement
+
+------------------------------------------------------------------------
+
+# UNIVERSAL ARCHITECTURE EXTENSIONS
+
+The following sections are mandatory additions to the project rules. They make payment, maps, isolates, animation, optimization, API, realtime, and quality decisions explicit instead of leaving them to individual implementation preference.
+
+## 1. AI Pre-flight Decision Engine
+
+Before changing code, execute this sequence:
+
+```text
+Understand outcome
+  ↓
+Read AGENTS.md and inspect project structure
+  ↓
+Search core widgets, utilities, services, models, routes, and dependencies
+  ↓
+Trace the existing feature flow and data contract
+  ↓
+Identify risks: compatibility, security, performance, UX, memory
+  ↓
+Choose reuse, refactor, or new implementation
+  ↓
+Implement the smallest maintainable change
+  ↓
+Run focused verification
+  ↓
+Review architecture, UX, security, resources, and performance
+  ↓
+Report changes, evidence, assumptions, and remaining risks
+```
+
+### New feature decision tree
+
+```text
+Need a feature?
+  ↓
+Search existing implementation
+  ├─ Found → reuse
+  └─ Not found
+       ↓
+Can existing code be generalized safely?
+  ├─ Yes → refactor with tests → reuse
+  └─ No → create feature-local code
+```
+
+### New widget decision tree
+
+```text
+Need a widget?
+  ↓
+Search lib/core/widgets
+  ↓
+Search feature widgets and the design system
+  ↓
+Suitable widget found?
+  ├─ Yes → configure or compose it
+  └─ No → can an existing widget be extended without feature leakage?
+       ├─ Yes → extend it
+       └─ No → create the smallest focused widget
+```
+
+Never create a new helper, service, API client, logger, state library, loading system, navigation system, or design component before searching for the existing project solution.
+
+## 2. Universal Flutter Architecture
+
+The standard flow is:
+
+```text
+Screen / Widget
+  ↓ observes
+GetX Controller
+  ↓ coordinates
+Service / Repository
+  ↓ uses
+ApiClient, SocketService, Storage, Platform SDK
+  ↓ returns
+Validated Model / Result
+```
+
+Responsibilities:
+
+- **Screen/widget:** layout, semantics, rendering, and user intent callbacks.
+- **Controller:** feature state, validation, orchestration, retry, pagination, and navigation decisions.
+- **Service:** transport, SDK integration, parsing, and data-source operations.
+- **Repository:** coordination between remote, local, cache, and synchronization policies when the feature needs that boundary.
+- **Model/DTO:** typed data and serialization; never hide business side effects in models.
+- **Core:** only truly cross-feature capabilities.
+
+Do not put API calls, payment decisions, map calculations, socket parsing, business rules, or large transformations in `build()` methods.
+
+## 3. Payment Architecture and Rules
+
+Payment must be selected by product type and platform policy, not by convenience.
+
+### Store billing is the default for in-app digital purchases
+
+For a Flutter app distributed through the App Store or Google Play, the safe default is:
+
+| Product | iOS/App Store | Android/Google Play |
+|---|---|---|
+| Digital feature, premium content, virtual currency, subscription, or in-app functionality | Apple In-App Purchase/StoreKit | Google Play Billing |
+| Physical goods or service consumed outside the app | Approved external processor, Apple Pay, card flow, or provider SDK as applicable | Approved external processor, Google Pay, card flow, or provider SDK as applicable |
+| Consumption-only reader/companion app | Follow the current platform rules; do not add an in-app external checkout casually | Follow the current Play policy; do not add a prohibited in-app payment path |
+
+Do not use Stripe, PayPal, a custom card form, or a WebView to unlock digital content inside a store-distributed mobile app unless the applicable platform program, region, entitlement, and review rules explicitly permit that flow. A third-party processor is not a universal replacement for StoreKit or Google Play Billing.
+
+Platform policies change by storefront, product category, country, app type, and legal program. Before implementation and before release, verify the current official requirements for the target countries and record the decision in an ADR. The default implementation must remain compliant if optional regional programs are unavailable.
+
+### Platform-specific implementation policy
+
+#### Apple
+
+- Use StoreKit/In-App Purchase for digital goods, subscriptions, premium features, virtual currency, and content consumed in the app unless an applicable Apple rule or entitlement says otherwise.
+- Configure products in App Store Connect and retrieve product metadata from StoreKit; do not hardcode user-facing price, currency, or subscription terms.
+- Observe transactions at app launch, finish transactions correctly, support restore/sync behavior, and verify transactions through StoreKit and/or a trusted server.
+- Use App Store Server Notifications and the App Store Server API where server-side subscription and entitlement synchronization is required.
+- External purchase links or alternative purchase messaging are region- and entitlement-dependent. Never add them because another app has them; confirm eligibility and required entitlement first.
+- For physical goods/services consumed outside the app, use an allowed external payment method rather than forcing StoreKit.
+
+#### Google Play
+
+- Use Google Play Billing for digital in-app features, subscriptions, virtual goods, and content unless a documented policy exception or enrolled alternative-billing program applies.
+- Configure products in Play Console and use Play Billing product details for displayed pricing and terms.
+- Verify purchases and subscription state on a trusted backend using the appropriate Play APIs; acknowledge/consume purchases according to product type and provider requirements.
+- Alternative billing and external links are country-, program-, and eligibility-dependent. Enrollment, disclosures, reporting, service fees, and technical requirements may apply.
+- For physical goods/services, peer-to-peer payments, and other documented exclusions, use a suitable external processor when permitted.
+- Do not assume a US or regional legal exception applies to every country, app category, or product.
+
+#### Third-party processors
+
+Stripe or another processor may be appropriate for physical goods, real-world services, marketplace payments, or a platform-approved alternative flow. It must not be selected merely because its SDK is easy to add.
+
+Before adding one, confirm:
+
+1. product classification: digital versus physical/real-world;
+2. App Store and Play policy for every target storefront;
+3. provider availability, merchant country, currencies, tax, refund, and dispute support;
+4. whether a native SDK, hosted checkout, or WebView is the approved integration;
+5. server-side order creation, webhook verification, idempotency, and reconciliation;
+6. PCI scope, privacy, consent, data retention, and secure logging;
+7. app review instructions and test-account/demo-flow requirements;
+8. a rollback path if the provider or regional program becomes unavailable.
+
+### Payment security architecture
+
+```text
+User selects product
+  ↓
+App requests a server-created product/order identifier
+  ↓
+Platform billing or approved provider checkout
+  ↓
+App receives an untrusted transaction signal
+  ↓
+Backend verifies provider/platform transaction or webhook
+  ↓
+Backend applies entitlement/order state idempotently
+  ↓
+App fetches authoritative state
+  ↓
+UI displays purchased, pending, failed, or recovery state
+```
+
+The client must never decide entitlement from price, a redirect parameter, a local flag, or an unverified callback. Store only the minimum local state needed to resume the flow. Treat every callback as replayable and every network request as retryable unless proven otherwise.
+
+Required security controls:
+
+- no secret/private provider keys in Flutter, Android, iOS, assets, or remote config;
+- server-created order/payment intent or platform product identifier;
+- server-side signature/receipt/token verification;
+- idempotency key per logical purchase attempt;
+- webhook signature verification and duplicate-event handling;
+- explicit authorization that the user may receive the entitlement;
+- masked logs and redacted crash/analytics data;
+- no raw card data handled by the app unless the provider and compliance scope explicitly require it;
+- TLS, certificate/platform defaults, safe redirect/deep-link validation, and allowlisted checkout domains;
+- pending-state recovery after process death, timeout, offline mode, and webhook delay;
+- refund, cancellation, chargeback, and entitlement revocation handling.
+
+### Payment release checklist
+
+```text
+Classify product
+  ↓
+Select platform billing or approved external method
+  ↓
+Verify region/program/entitlement
+  ↓
+Implement server authority and idempotency
+  ↓
+Implement restore/reconcile/pending/refund paths
+  ↓
+Test sandbox and failure cases
+  ↓
+Review privacy, PCI scope, logs, deep links, and app-store metadata
+  ↓
+Re-check current policies before submission
+```
+
+Official policy references to re-check before release:
+
+- [Apple App Review Guidelines — 3.1 Payments](https://developer.apple.com/app-store/review/guidelines/)
+- [Apple In-App Purchase documentation](https://developer.apple.com/documentation/storekit/in-app-purchase)
+- [Apple App Store Server API and notifications](https://developer.apple.com/documentation/appstoreserverapi)
+- [Google Play Payments policy](https://support.google.com/googleplay/android-developer/answer/9858738)
+- [Google Play Billing overview](https://developer.android.com/google/play/billing)
+
+These links are references, not a substitute for checking the current policy, storefront, and entitlement requirements at implementation time.
+
+### In-app hosted checkout rule
+
+When an external hosted checkout is permitted for the product type and storefront, it must open inside the application in a controlled WebView flow. Do not send the user to the device launcher, system browser, `url_launcher`, an unapproved browser package, or an arbitrary external intent for the payment journey.
+
+```text
+Backend creates approved checkout session
+  ↓
+App opens HTTPS checkout in an in-app WebView
+  ↓
+WebView allows only the approved payment domains
+  ↓
+User completes, cancels, or abandons checkout
+  ↓
+App receives a controlled return/deep-link result
+  ↓
+Backend webhook/API verifies final status
+  ↓
+App shows authoritative pending/success/failure state
+```
+
+In-app WebView rules:
+
+- Use the existing approved WebView integration if the project already has one; search `pubspec.yaml` and existing payment code first.
+- If no integration exists, evaluate the maintained official Flutter WebView option and its platform support before adding a dependency. Do not add multiple WebView packages.
+- Never use `url_launcher` or an external browser for the payment flow when an approved in-app checkout is required.
+- Allow only HTTPS and an explicit provider/return-domain allowlist; block arbitrary navigation, downloads, unknown schemes, and untrusted redirects.
+- Do not inject secrets, card data, JavaScript bridges, or unrestricted native capabilities into the page.
+- Handle back, close, cancel, timeout, app backgrounding, process death, network loss, and provider redirects without claiming success locally.
+- Keep the WebView inside a dedicated payment screen with a visible close/cancel action and localized loading/error states.
+- Do not use a WebView to bypass App Store or Play Billing requirements for digital goods. If policy requires native platform billing, use that instead.
+- Verify payment completion on the backend after the WebView returns; a redirect URL is only a signal, never proof of payment.
+- Clear or dispose the WebView and its listeners when the payment screen closes.
+
+```text
+What is being sold?
+  ├─ Digital goods/features consumed inside the app
+  │    └─ Check platform in-app purchase requirements first
+  └─ Physical goods or real-world services
+       └─ Evaluate an approved payment provider SDK
+            ↓
+Official native SDK available and supported?
+  ├─ Yes → use it
+  └─ No → evaluate approved hosted checkout
+       ↓
+Is WebView allowed for this transaction and platform?
+  ├─ No/unclear → stop and verify current provider/platform rules
+  └─ Yes → HTTPS-only allowlisted checkout with controlled return flow
+       ↓
+Client callback received
+       ↓
+Server verifies provider status/webhook
+       ↓
+Persist idempotent transaction state
+       ↓
+Show truthful pending/success/failure result
+```
+
+Mandatory payment rules:
+
+- The backend owns amount, currency, order/payment-intent creation, authorization, capture, refund, entitlement, and final status.
+- Never ship secret keys, private keys, webhook secrets, or unrestricted provider credentials in the app.
+- Never trust a client-calculated amount, client callback, redirect query, or success screen as proof of settlement.
+- Use official maintained SDKs when applicable; inspect existing dependencies before adding Stripe or another provider.
+- WebView checkout must use HTTPS, an explicit domain allowlist, safe deep-link/return handling, cancellation support, and no silent amount or destination changes.
+- Webhook processing must authenticate signatures, tolerate retries, deduplicate events, and be idempotent.
+- Model at least `created`, `requiresAction`, `pending`, `succeeded`, `failed`, `canceled`, `refunded`, and `disputed` where the provider supports them.
+- Prevent duplicate taps and duplicate charges with client state plus server idempotency keys.
+- Payment logs must mask card data, tokens, customer secrets, personal data, and provider credentials.
+- Reconcile delayed or interrupted payments after app restart; do not permanently mark an order failed because the app lost connectivity.
+- Provide localized, actionable payment errors and a recovery path.
+- Test success, cancellation, decline, timeout, duplicate request, webhook retry, delayed confirmation, refund, and app-killed scenarios.
+
+Adding a payment package or WebView requires checking `pubspec.yaml`, backend contracts, platform requirements, and current official provider documentation first.
+
+## 4. Google Maps and Location Architecture
+
+Maps are a feature boundary, not a reason to put location logic in widgets.
+
+```text
+Location permission/state
+  ↓
+LocationService
+  ↓
+MapController / feature controller
+  ↓
+Validated markers, polylines, camera state
+  ↓
+Small reactive map widgets
+```
+
+Rules:
+
+- Keep API keys and platform restrictions in platform configuration; never hardcode unrestricted secrets in Dart.
+- Request permission only at the point of need, explain why, handle denied/permanently denied states, and provide settings recovery.
+- Stop location streams when the feature is inactive unless background location is explicitly required and authorized.
+- Keep marker, polyline, and camera state owned by the controller or map feature, not by repeated widget rebuilds.
+- Reuse marker icons and avoid recreating every marker on every frame.
+- Diff marker/polyline collections when practical; do not rebuild thousands of objects for one changed item.
+- Perform route decoding, clustering, distance calculations, and heavy geometry off the UI isolate when measured workload justifies it.
+- Debounce camera/search events and cancel stale requests.
+- Handle no permission, no GPS, offline tiles, empty results, invalid coordinates, and provider errors.
+- Never expose precise location in logs unless strictly required; redact or quantize where appropriate.
+- Test lifecycle, permission changes, rotation/resume, empty maps, large marker sets, and network loss.
+
+## 5. Isolate and Concurrency Rules
+
+Isolates are for CPU-bound work, not a default wrapper around every API call.
+
+```text
+Is the work CPU-heavy on a representative payload?
+  ├─ No → keep it on the main isolate
+  └─ Yes → measure main-thread impact
+       ↓
+Can the work be safely transferred as simple data?
+  ├─ No → simplify boundary or keep it local
+  └─ Yes → use compute()/Isolate.run() or a managed isolate
+       ↓
+Verify lifecycle, cancellation, errors, ordering, and memory cost
+```
+
+Use isolates selectively for large JSON decoding/mapping, feed/story transformation, chat history sorting, media metadata, encryption/compression, route geometry, or other proven CPU-heavy work. Do not use isolates for ordinary network waiting, tiny payloads, UI objects, controllers, `BuildContext`, open sockets, or plugin objects that are not isolate-safe.
+
+Rules:
+
+- Entry points must be top-level or static and accept/return transferable data.
+- Keep parsing pure: no navigation, logging UI, dependency lookup, or mutation of shared state.
+- Treat isolate errors and cancellation as first-class failure paths.
+- Do not create an isolate per small item; batch work when appropriate.
+- Preserve response ordering and reject stale results before assigning state.
+- Measure total latency, spawn/transfer overhead, memory, and battery impact.
+- Dispose workers and subscriptions through the owning controller/service lifecycle.
+
+## 6. Animation and Rendering Rules
+
+Animation exists to communicate state, hierarchy, continuity, or feedback. It must never delay a critical action or hide an error.
+
+```text
+Does animation improve comprehension or feedback?
+  ├─ No → do not add it
+  └─ Yes → can an implicit/lightweight animation satisfy it?
+       ├─ Yes → use the simplest animation
+       └─ No → use an explicit controller with bounded lifecycle
+            ↓
+Measure rebuilds, raster time, memory, and reduced-motion behavior
+```
+
+Rules:
+
+- Prefer `const` widgets and small reactive boundaries around animated content.
+- Prefer `AnimatedContainer`, `AnimatedOpacity`, `TweenAnimationBuilder`, `Hero`, or other simple primitives before a custom controller.
+- Use `AnimationController` only with a clear owner and guaranteed disposal.
+- Do not start animations repeatedly from `build()`.
+- Avoid animating expensive layout, large shadows, huge images, or entire page trees unnecessarily.
+- Keep animation duration and curves consistent with the design system.
+- Respect reduced-motion/accessibility preferences where supported.
+- Avoid nested competing animations and infinite loops without an explicit stop condition.
+- Use `RepaintBoundary` only when profiling shows an isolated repaint benefit.
+- Test first frame, interrupted animation, route disposal, slow devices, and accessibility settings.
+
+## 7. Optimization and Performance Rules
+
+Optimization is evidence-driven.
+
+```text
+Performance concern reported
+  ↓
+Define user-visible metric and baseline
+  ↓
+Profile CPU / build / raster / memory / network / storage
+  ↓
+Locate root bottleneck
+  ↓
+Apply one bounded change
+  ↓
+Measure representative scenarios again
+  ↓
+Keep the change only if benefit exceeds complexity
+```
+
+Priority order:
+
+1. Correctness and safe behavior.
+2. Avoid unnecessary work.
+3. Bound data, list length, retries, cache size, and concurrency.
+4. Reduce rebuild scope and expensive layout/raster work.
+5. Optimize network requests, payloads, caching, and pagination.
+6. Move proven CPU-heavy transformations off the UI isolate.
+7. Tune micro-allocations only after profiling.
+
+Required practices:
+
+- Use pagination or lazy loading for unbounded data.
+- Debounce search and camera events; cancel stale requests.
+- Keep `Obx`/reactive scopes as small as possible.
+- Avoid work, object creation, and network calls in `build()`.
+- Use stable keys where list identity requires them.
+- Reuse image data, thumbnails, and decoded resources appropriately.
+- Dispose controllers, timers, workers, streams, video players, map resources, and subscriptions.
+- Prefer O(N) work with a small constant over clever structures whose memory or invalidation cost is unclear.
+- Do not claim 60/120 FPS without profiling on representative hardware.
+
+### Widget Weight and Narrowest-Widget Rule
+
+Do not use a multi-purpose widget when a smaller, more specific widget expresses the same intent. This keeps the widget tree understandable and can avoid unnecessary layout, painting, or constraint work.
+
+Use the narrowest equivalent:
+
+| Intent | Prefer |
+|---|---|
+| Spacing | `SizedBox` or `Padding` |
+| Alignment only | `Align` or `Center` |
+| Constraints only | `ConstrainedBox` or `SizedBox` |
+| Background color only | `ColoredBox` |
+| Decoration only | `DecoratedBox` |
+| Opacity only | `Opacity` or a suitable animated opacity widget |
+| Safe area only | `SafeArea` |
+| Layout direction only | `Row`, `Column`, `Wrap`, or `Flex` |
+
+`Container` is not forbidden and is not automatically heavy. Use it when it genuinely combines multiple responsibilities such as padding, constraints, alignment, color, and decoration. Do not replace widgets mechanically without profiling or a readability benefit. The objective is a clear, minimal widget tree—not a benchmark-driven ban on valid Flutter primitives.
+
+Avoid unnecessary `Builder`, nested `Container`s, nested `Opacity`, `IntrinsicHeight`/`IntrinsicWidth`, `LayoutBuilder` without a real constraint decision, and `shrinkWrap` on large scrolling lists. Extract reusable visual pieces, keep reactive scopes small, and do not create widgets merely to reduce a line count.
+
+## 7.1 Isolate Setup and Usage Blueprint
+
+Use an isolate only for measurable CPU-bound work that would otherwise cause UI jank. Network waiting belongs in asynchronous services; isolates do not make HTTP requests inherently faster.
+
+### Isolate setup decision tree
+
+```text
+Is the operation CPU-bound?
+  ├─ No → use normal async service code
+  └─ Yes
+       ↓
+Is the payload large or the operation slow enough to affect frames?
+  ├─ No → keep it on the main isolate
+  └─ Yes
+       ↓
+Can input and output be represented as transferable data?
+  ├─ No → redesign the boundary or keep it local
+  └─ Yes → use compute() / Isolate.run()
+       ↓
+Define pure entry point, error behavior, stale-result policy, and lifecycle
+       ↓
+Measure before and after
+```
+
+### Preferred setup for one-shot work
+
+Use a top-level or static pure function. Do not pass `BuildContext`, controllers, Rx objects, open sockets, plugin instances, `AnimationController`, or service locators into the isolate.
+
+```dart
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+
+class FeedParser {
+  static List<FeedItem> parse(String rawJson) {
+    final decoded = jsonDecode(rawJson) as List<dynamic>;
+    return decoded
+        .map((item) => FeedItem.fromJson(item as Map<String, dynamic>))
+        .toList(growable: false);
+  }
+}
+
+Future<List<FeedItem>> parseFeedInBackground(String rawJson) {
+  return compute(FeedParser.parse, rawJson);
+}
+```
+
+The entry point must be deterministic: input in, output out, no UI side effects. The model and parser must be safe for the selected isolate boundary. For very large or repeated workloads, use a deliberately managed worker isolate rather than spawning one isolate per item.
+
+### Controller integration
+
+```dart
+class FeedController extends GetxController {
+  final items = <FeedItem>[].obs;
+  int _requestVersion = 0;
+
+  Future<void> loadFeed(String rawJson) async {
+    final requestVersion = ++_requestVersion;
+    try {
+      final parsed = await compute(FeedParser.parse, rawJson);
+      if (requestVersion != _requestVersion || isClosed) return;
+      items.assignAll(parsed);
+    } catch (error, stackTrace) {
+      AppLogger.error('Feed parsing failed', error: error, stackTrace: stackTrace);
+    }
+  }
+}
+```
+
+For a managed isolate, the owner must retain the `Isolate`, `ReceivePort`, `SendPort`, subscriptions, and pending operation state. It must handle startup failure, message failure, cancellation, timeout, stale responses, and shutdown in `onClose()`. Never leave a worker, port, timer, or subscription alive after its feature is disposed.
+
+### Isolate rules by workload
+
+- **Feed/stories:** decode and map large response arrays only when profiling shows parsing affects frame time.
+- **Chat:** parse or sort large history batches; keep socket ownership and UI state on the main isolate.
+- **Maps:** calculate large route geometry, clustering, or distance matrices when necessary; keep map plugin calls on the supported isolate.
+- **Media:** compress or transform files through an isolate/background mechanism only when the selected plugin supports it safely.
+- **Payment:** never move provider SDK calls, secure checkout UI, web authentication, or transaction ownership into a custom isolate.
+
+### Never use an isolate for
+
+- ordinary API latency or a small JSON response;
+- widget construction, `BuildContext`, navigation, or UI notifications;
+- direct access to GetX controllers or reactive variables;
+- platform channels/plugins that require the main isolate;
+- work whose transfer and startup cost exceeds the computation itself.
+
+Every isolate change must record the reason, measured baseline, payload boundary, error policy, disposal path, and verification result.
+
+## 8. REST API and Model Blueprint
+
+Required flow:
+
+```text
+Endpoint contract
+  ↓
+Typed request/response DTO or model
+  ↓
+ApiClient
+  ↓
+Feature service/repository
+  ↓
+GetX controller state
+  ↓
+Localized UI state
+```
+
+Rules:
+
+- Keep base URL, endpoint paths, headers, timeout, auth, and retry policy centralized.
+- Never create a second API client for convenience.
+- Validate status codes, response shape, nullability, pagination, and error envelopes.
+- Use typed models with safe `fromJson`/`toJson`; do not scatter raw map access through widgets.
+- Keep transport exceptions distinguishable from validation, authorization, and business errors.
+- Retry only safe/idempotent operations or use explicit idempotency.
+- Log request metadata safely, never tokens or sensitive bodies.
+- Add loading, empty, stale, retry, and offline behavior to controllers.
+
+## 9. Socket and Realtime Blueprint
+
+All socket behavior must flow through the existing socket abstraction.
+
+- One ownership point for connect, reconnect, disconnect, authentication, and subscription.
+- Explicit connection states: disconnected, connecting, connected, reconnecting, failed.
+- Typed event parsing and version-aware payload handling.
+- Backoff with bounded retries and no reconnect storm.
+- Deduplication/order policy for events and reconnect replay.
+- Heartbeat/timeout behavior where required.
+- Stream subscriptions must be disposed by their owner.
+- Do not close a shared singleton stream from a feature-specific controller.
+- Never log raw private chat, auth tokens, or sensitive payloads.
+
+## 10. Unified Logging and EasyLoading
+
+`AppLogger` is the single project logging surface. Use it for developer diagnostics and the existing EasyLoading wrapper according to its established API.
+
+Rules:
+
+- Use structured severity and meaningful operation context.
+- Pair user-facing loading/success/error feedback with correct dismissal/finalization.
+- Never show a global loader for silent background refresh unless the UX requires it.
+- Never leave a loader visible after timeout, cancellation, navigation, or exception.
+- Never use `print`, `debugPrint`, ad hoc SnackBars, or competing notification systems.
+- Redact tokens, payment details, location precision, private messages, and personal data.
+
+## 11. Strict Code Quality and 250-Line Guidance
+
+The preferred limit is fewer than 250 lines per Dart file. This is a warning boundary, not permission to split cohesive code into meaningless fragments.
+
+When a file approaches the limit:
+
+```text
+Is the file mixing responsibilities?
+  ├─ Yes → extract cohesive widgets/helpers/models/services
+  └─ No → keep cohesion; document why the exception is safer
+```
+
+Never split only to satisfy a number. Never use the line cap to hide a God controller or move business logic into random files.
+
+## 12. Feature and Module Index
+
+Every applicable feature review should consider these modules:
+
+1. Engineering philosophy and requirement clarity
+2. Project lifecycle and acceptance criteria
+3. Feature-isolated folder structure
+4. MVC responsibility boundaries
+5. Core reusable widgets
+6. Utility and extension reuse
+7. API client ownership
+8. Endpoint and environment configuration
+9. Request/response models
+10. DTO and domain mapping
+11. Service/repository boundaries
+12. Controller state ownership
+13. Dependency injection
+14. Navigation and route guards
+15. Authentication and session lifecycle
+16. Authorization and role enforcement
+17. Secure storage
+18. Localization and formatting
+19. Theme and design tokens
+20. Responsive layout
+21. Accessibility and semantics
+22. Loading states
+23. Empty states
+24. Error and retry states
+25. Offline and cache behavior
+26. Pagination and infinite scroll
+27. Debounced search
+28. File upload/download
+29. Media picking and compression
+30. Image caching and memory
+31. Video lifecycle
+32. Stories and feed transformation
+33. Chat and message ordering
+34. Socket connection lifecycle
+35. Push notification handling
+36. Location and permissions
+37. Google Maps markers, routes, and camera
+38. Payment and transaction state
+39. WebView safety and deep links
+40. Isolates and CPU-bound work
+41. Animation and frame performance
+42. Rendering and rebuild scope
+43. Logging and privacy-safe observability
+44. Analytics and consent
+45. Error reporting
+46. Unit, widget, integration, and end-to-end tests
+47. Security and dependency review
+48. Migration, backward compatibility, and rollback
+49. Architecture Decision Records and documentation
+50. Code review, AI self-review, and production readiness
+
+## 13. Mandatory Final Self-Review
+
+Before returning any implementation, verify:
+
+- Requirement and acceptance behavior are understood.
+- Existing code and dependencies were searched.
+- Reuse was preferred over duplication.
+- GetX, ApiClient, AppLogger, EasyLoading, and navigation conventions remain consistent.
+- Payment, map, socket, isolate, animation, and lifecycle rules were applied where relevant.
+- No business logic was added to UI build methods.
+- Loading, empty, error, retry, offline, cancellation, and duplicate-action states were considered.
+- Security, privacy, permissions, accessibility, localization, and platform policy were considered.
+- No resource, subscription, timer, controller, or worker leaks were introduced.
+- Performance claims are measured or clearly labeled as expectations.
+- Tests or focused verification were run, or the limitation is reported honestly.
+- The final response states what changed, what was verified, and what remains.
+
+## 14. Absolute Rules
+
+Always search before creating. Always preserve existing contracts unless change is intended. Always verify sensitive outcomes on a trusted boundary. Always dispose resources. Always localize user-facing text. Always make failure recoverable where possible. Always report uncertainty.
+
+Never invent APIs, backend fields, payment status, map capabilities, test results, or architecture. Never place secrets in client code. Never treat a client callback as payment settlement. Never use a WebView to bypass platform policy. Never optimize without a measured problem. Never add a dependency without reviewing its cost and exit path.
 
 The implementation is considered complete only if it:
 
