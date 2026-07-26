@@ -17,6 +17,7 @@ import 'package:donnymaestro/features/complete_profile/add_photo/controllers/add
 import 'package:donnymaestro/features/complete_profile/take_selfie/controllers/take_selfie_controller.dart';
 import 'package:donnymaestro/features/complete_profile/complete/controllers/complete_verification_controller.dart';
 import 'package:donnymaestro/features/complete_profile/turn_on_notification/controllers/turn_on_notification_controller.dart';
+import 'package:donnymaestro/features/complete_profile/all_set/controllers/all_set_controller.dart';
 
 class CompleteProfileBinding extends Bindings {
   @override
@@ -42,5 +43,6 @@ class CompleteProfileBinding extends Bindings {
     Get.lazyPut(() => TakeSelfieController(), fenix: true);
     Get.lazyPut(() => CompleteVerificationController(), fenix: true);
     Get.lazyPut(() => TurnOnNotificationController(), fenix: true);
+    Get.lazyPut(() => AllSetController(), fenix: true);
   }
 }

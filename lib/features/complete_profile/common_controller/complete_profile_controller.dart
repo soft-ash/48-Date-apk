@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/logger/logger.dart';
+import 'package:donnymaestro/routes/app_routes.dart';
 
 class CompleteProfileController extends GetxController {
   // ==========================================
@@ -231,7 +232,7 @@ class CompleteProfileController extends GetxController {
       AppLogger.dismiss();
       AppLogger.success('Profile completed successfully!');
 
-      // Navigate to Home or next onboarding module when ready
+      Get.offAllNamed(AppRoutes.allSet);
     } catch (e) {
       AppLogger.dismiss();
       AppLogger.error('Failed to complete profile: $e');

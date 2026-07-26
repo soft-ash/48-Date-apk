@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
-import 'package:donnymaestro/core/constant/images.dart';
 import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import 'package:donnymaestro/core/widgets/custom_button.dart';
@@ -20,10 +19,26 @@ class PoseCameraScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background reference pose image or camera feed placeholder
-          Image.asset(
-            AppImages.set,
-            fit: BoxFit.cover,
+          // Simulated camera viewfinder background for pose matching
+          Container(
+            color: const Color(0xFF1E1E24),
+            child: Center(
+              child: Container(
+                width: 260.w,
+                height: 360.h,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.primary500.withValues(alpha: 0.6), width: 2),
+                  borderRadius: BorderRadius.circular(160.r),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.person_outline,
+                    size: 140.sp,
+                    color: Colors.white.withValues(alpha: 0.3),
+                  ),
+                ),
+              ),
+            ),
           ),
           // Top AppBar with Back Button
           SafeArea(
