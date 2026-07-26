@@ -15,4 +15,9 @@ abstract final class AppRoutes {
   static const height = '/height';
   static const weight = '/weight';
   static const lookingFor = '/looking-for';
+  static const addPhoto = '/add-photo';
+  static const takeSelfie = '/take-selfie';
+  static const poseCamera = '/pose-camera';
+  static const complete = '/complete';
+  static const turnOnNotification = '/turn-on-notification';
 }

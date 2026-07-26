@@ -13,6 +13,10 @@ import 'package:donnymaestro/features/complete_profile/interest/controllers/inte
 import 'package:donnymaestro/features/complete_profile/height/controllers/height_controller.dart';
 import 'package:donnymaestro/features/complete_profile/weight/controllers/weight_controller.dart';
 import 'package:donnymaestro/features/complete_profile/looking_for/controllers/looking_for_controller.dart';
+import 'package:donnymaestro/features/complete_profile/add_photo/controllers/add_photo_controller.dart';
+import 'package:donnymaestro/features/complete_profile/take_selfie/controllers/take_selfie_controller.dart';
+import 'package:donnymaestro/features/complete_profile/complete/controllers/complete_verification_controller.dart';
+import 'package:donnymaestro/features/complete_profile/turn_on_notification/controllers/turn_on_notification_controller.dart';
 
 class CompleteProfileBinding extends Bindings {
   @override
@@ -34,5 +38,9 @@ class CompleteProfileBinding extends Bindings {
     Get.lazyPut(() => HeightController(), fenix: true);
     Get.lazyPut(() => WeightController(), fenix: true);
     Get.lazyPut(() => LookingForController(), fenix: true);
+    Get.lazyPut(() => AddPhotoController(), fenix: true);
+    Get.lazyPut(() => TakeSelfieController(), fenix: true);
+    Get.lazyPut(() => CompleteVerificationController(), fenix: true);
+    Get.lazyPut(() => TurnOnNotificationController(), fenix: true);
   }
 }

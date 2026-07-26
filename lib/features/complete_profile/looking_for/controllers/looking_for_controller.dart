@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/logger/logger.dart';
 import 'package:donnymaestro/features/complete_profile/common_controller/complete_profile_controller.dart';
+import 'package:donnymaestro/routes/app_routes.dart';
 
 class LookingForController extends GetxController {
   final RxnString selectedOption = RxnString();
@@ -41,7 +42,6 @@ class LookingForController extends GetxController {
     }
 
     commonController.setLookingFor(selectedOption.value!);
-    // Submit the complete profile or navigate to next onboarding screen when added
-    commonController.submitCompleteProfile();
+    Get.toNamed(AppRoutes.addPhoto);
   }
 }

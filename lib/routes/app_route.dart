@@ -12,6 +12,11 @@ import 'package:donnymaestro/features/complete_profile/interest/screen/interest_
 import 'package:donnymaestro/features/complete_profile/height/screen/height_screen.dart';
 import 'package:donnymaestro/features/complete_profile/weight/screen/weight_screen.dart';
 import 'package:donnymaestro/features/complete_profile/looking_for/screen/looking_for_screen.dart';
+import 'package:donnymaestro/features/complete_profile/add_photo/screen/add_photo_screen.dart';
+import 'package:donnymaestro/features/complete_profile/take_selfie/screen/take_selfie_screen.dart';
+import 'package:donnymaestro/features/complete_profile/take_selfie/screen/pose_camera_screen.dart';
+import 'package:donnymaestro/features/complete_profile/complete/screen/complete_verification_screen.dart';
+import 'package:donnymaestro/features/complete_profile/turn_on_notification/screen/turn_on_notification_screen.dart';
 import 'package:donnymaestro/features/complete_profile/binding/complete_profile_binding.dart';
 import 'package:donnymaestro/features/welcome/screen/welcome.dart';
 import 'package:donnymaestro/features/splash/screens/splash_screen.dart';
@@ -86,6 +91,31 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: AppRoutes.lookingFor,
       page: () => const LookingForScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.addPhoto,
+      page: () => const AddPhotoScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.takeSelfie,
+      page: () => const TakeSelfieScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.poseCamera,
+      page: () => const PoseCameraScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.complete,
+      page: () => const CompleteVerificationScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.turnOnNotification,
+      page: () => const TurnOnNotificationScreen(),
       binding: CompleteProfileBinding(),
     ),
   ];

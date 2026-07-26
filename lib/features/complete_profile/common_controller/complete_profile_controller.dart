@@ -150,7 +150,45 @@ class CompleteProfileController extends GetxController {
   }
 
   // ==========================================
-  // 7. Unified API Submission
+  // 7. Add Photos Step Variables
+  // ==========================================
+  final RxList<String> photos = <String>[].obs;
+
+  void setPhotos(List<String> values) {
+    photos.assignAll(values);
+    AppLogger.consoleInfo(title: "setPhotos", subtitle: "Stored ${values.length} photos");
+  }
+
+  // ==========================================
+  // 8. Selfie Verification Variables
+  // ==========================================
+  final RxnString selfiePath = RxnString();
+  final RxBool isSelfieSkipped = false.obs;
+
+  void setSelfie(String path) {
+    selfiePath.value = path;
+    isSelfieSkipped.value = false;
+    AppLogger.consoleInfo(title: "setSelfie", subtitle: "Stored selfie: $path");
+  }
+
+  void skipSelfie() {
+    selfiePath.value = null;
+    isSelfieSkipped.value = true;
+    AppLogger.consoleInfo(title: "skipSelfie", subtitle: "Skipped selfie verification");
+  }
+
+  // ==========================================
+  // 9. Turn On Notifications Variables
+  // ==========================================
+  final RxBool notificationsEnabled = false.obs;
+
+  void setNotifications(bool enabled) {
+    notificationsEnabled.value = enabled;
+    AppLogger.consoleInfo(title: "setNotifications", subtitle: "Notifications enabled: $enabled");
+  }
+
+  // ==========================================
+  // 10. Unified API Submission
   // ==========================================
   Future<void> submitCompleteProfile() async {
     final Map<String, dynamic> apiBody = {
@@ -175,6 +213,10 @@ class CompleteProfileController extends GetxController {
       'height': height.value,
       'weight': weight.value,
       'looking_for': lookingFor.value,
+      'photos': photos.toList(),
+      'selfie_path': selfiePath.value,
+      'is_selfie_skipped': isSelfieSkipped.value,
+      'notifications_enabled': notificationsEnabled.value,
     };
 
     AppLogger.consoleInfo(
