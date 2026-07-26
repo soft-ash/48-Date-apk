@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
+import 'package:donnymaestro/core/constant/icons.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import '../controller/discover_controller.dart';
 
@@ -16,20 +17,20 @@ class DiscoverBottomButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           _buildActionButton(
-            icon: Icons.close,
+            iconAsset: AppIcons.reject,
             iconColor: AppColor.gray800,
             bgColor: AppColor.whiteColor,
             size: 60.w,
-            iconSize: 28.sp,
+            iconSize: 24.w,
             hasShadow: true,
             onTap: controller.onReject,
           ),
           _buildActionButton(
-            icon: Icons.favorite,
+            iconAsset: AppIcons.mark,
             iconColor: AppColor.whiteColor,
             bgColor: AppColor.primaryColor,
             size: 68.w,
-            iconSize: 32.sp,
+            iconSize: 28.w,
             hasShadow: true,
             onTap: controller.onLike,
           ),
@@ -39,7 +40,7 @@ class DiscoverBottomButtons extends StatelessWidget {
   }
 
   Widget _buildActionButton({
-    required IconData icon,
+    required String iconAsset,
     required Color iconColor,
     required Color bgColor,
     required double size,
@@ -72,7 +73,12 @@ class DiscoverBottomButtons extends StatelessWidget {
                   : null,
         ),
         alignment: Alignment.center,
-        child: Icon(icon, color: iconColor, size: iconSize),
+        child: Image.asset(
+          iconAsset,
+          width: iconSize,
+          height: iconSize,
+          color: iconColor,
+        ),
       ),
     );
   }

@@ -15,41 +15,48 @@ class DiscoverIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double progress = (trustScore / 5.0).clamp(0.0, 1.0);
+
     return Center(
-      child: Container(
-        width: 100.w,
-        height: 100.w,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: AppColor.whiteColor,
-          border: Border.all(
-            color: AppColor.primaryColor.withValues(alpha: 0.3),
-            width: 2.5,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: AppColor.primaryColor.withValues(alpha: 0.1),
-              blurRadius: 16,
-              spreadRadius: 2,
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      child: SizedBox(
+        width: 110.w,
+        height: 110.w,
+        child: Stack(
+          alignment: Alignment.center,
           children: [
-            Icon(Icons.shield, color: AppColor.primaryColor, size: 24.sp),
-            SizedBox(height: 2.h),
-            Text(
-              trustScore.toStringAsFixed(1),
-              style: AppTextStyle.h6(
-                weight: AppTextStyle.bold,
-              ).copyWith(color: AppColor.gray900),
+            Positioned.fill(
+              child: CircularProgressIndicator(
+                value: progress,
+                strokeWidth: 5.w,
+                strokeCap: StrokeCap.round,
+                backgroundColor: AppColor.primaryColor.withValues(alpha: 0.15),
+                valueColor: const AlwaysStoppedAnimation<Color>(
+                  AppColor.primaryColor,
+                ),
+              ),
             ),
-            Text(
-              label,
-              style: AppTextStyle.caption(
-                weight: AppTextStyle.medium,
-              ).copyWith(color: AppColor.gray500, fontSize: 10.sp),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.star_border_rounded,
+                  color: AppColor.primaryColor,
+                  size: 24.sp,
+                ),
+                SizedBox(height: 2.h),
+                Text(
+                  trustScore.toStringAsFixed(1),
+                  style: AppTextStyle.h6(
+                    weight: AppTextStyle.bold,
+                  ).copyWith(color: AppColor.primaryColor),
+                ),
+                Text(
+                  'Trust Score',
+                  style: AppTextStyle.caption(
+                    weight: AppTextStyle.medium,
+                  ).copyWith(color: AppColor.gray600, fontSize: 11.sp),
+                ),
+              ],
             ),
           ],
         ),

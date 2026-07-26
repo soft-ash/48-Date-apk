@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
+import 'package:donnymaestro/core/constant/icons.dart';
 import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import '../model/discover_user_model.dart';
@@ -79,30 +80,26 @@ class DiscoverHeroHeader extends StatelessWidget {
                     ),
                     if (user.isVerified) ...[
                       SizedBox(width: 6.w),
-                      Icon(
-                        Icons.verified,
-                        color: AppColor.primaryColor,
-                        size: 20.sp,
-                      ),
+                      Image.asset(AppIcons.badge, width: 20.sp, height: 20.sp),
                     ],
                   ],
                 ),
                 SizedBox(height: 4.h),
                 Row(
                   children: [
-                    Icon(
-                      Icons.location_on,
+                    Image.asset(
+                      AppIcons.location,
                       color: AppColor.whiteColor.withValues(alpha: 0.8),
-                      size: 14.sp,
+                      width: 14.sp,
+                      height: 14.sp,
                     ),
                     SizedBox(width: 4.w),
                     Text(
                       user.distanceText,
-                      style: AppTextStyle.bodySmall(
-                        weight: AppTextStyle.medium,
-                      ).copyWith(
-                        color: AppColor.whiteColor.withValues(alpha: 0.9),
-                      ),
+                      style: AppTextStyle.bodySmall(weight: AppTextStyle.medium)
+                          .copyWith(
+                            color: AppColor.whiteColor.withValues(alpha: 0.9),
+                          ),
                     ),
                   ],
                 ),
@@ -111,8 +108,7 @@ class DiscoverHeroHeader extends StatelessWidget {
                   spacing: 6.w,
                   runSpacing: 6.h,
                   children: [
-                    for (final tag in user.personalityTags)
-                      _buildTagChip(tag),
+                    for (final tag in user.personalityTags) _buildTagChip(tag),
                     _buildTrustBadge(user.trustScore),
                   ],
                 ),
@@ -150,7 +146,12 @@ class DiscoverHeroHeader extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.shield, color: AppColor.whiteColor, size: 12.sp),
+          Image.asset(
+            AppIcons.badge,
+            color: AppColor.whiteColor,
+            width: 12.sp,
+            height: 12.sp,
+          ),
           SizedBox(width: 4.w),
           Text(
             '$score Trust Score',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
+import 'package:donnymaestro/core/constant/icons.dart';
 import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import '../model/discover_user_model.dart';
@@ -72,10 +73,11 @@ class DiscoverCardBody extends StatelessWidget {
               'Location',
               Row(
                 children: [
-                  Icon(
-                    Icons.location_on,
+                  Image.asset(
+                    AppIcons.location,
                     color: AppColor.primaryColor,
-                    size: 18.sp,
+                    width: 18.sp,
+                    height: 18.sp,
                   ),
                   SizedBox(width: 6.w),
                   Text(user.location, style: _bodyStyle()),
@@ -114,7 +116,7 @@ class DiscoverCardBody extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppTextStyle.h6(
+            style: AppTextStyle.bodyExtraLarge(
               weight: AppTextStyle.bold,
             ).copyWith(color: AppColor.gray900),
           ),
@@ -182,11 +184,18 @@ class DiscoverCardBody extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: Text(
-        text,
-        style: AppTextStyle.bodySmall(
-          weight: AppTextStyle.medium,
-        ).copyWith(color: AppColor.gray800),
+      child: Row(
+        mainAxisSize: .min,
+        children: [
+          Image.asset(AppIcons.language, width: 16.sp, height: 16.sp),
+          SizedBox(width: 6.w),
+          Text(
+            text,
+            style: AppTextStyle.bodySmall(
+              weight: AppTextStyle.medium,
+            ).copyWith(color: AppColor.gray800),
+          ),
+        ],
       ),
     );
   }

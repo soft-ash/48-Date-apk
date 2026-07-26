@@ -2,9 +2,9 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/constant/colors.dart';
+import 'package:donnymaestro/core/constant/icons.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
 import '../controller/discover_controller.dart';
-import '../widgets/discover_bottom_buttons.dart';
 import '../widgets/discover_card.dart';
 import '../widgets/discover_loading_card.dart';
 
@@ -22,7 +22,6 @@ class DiscoverScreen extends StatelessWidget {
           children: [
             _buildHeader(),
             Expanded(child: _buildCardStack(controller)),
-            DiscoverBottomButtons(controller: controller),
           ],
         ),
       ),
@@ -35,24 +34,16 @@ class DiscoverScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Text(
-                '48',
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.w900,
-                  color: AppColor.primaryColor,
-                  letterSpacing: -1,
-                ),
-              ),
-            ],
+          Image.asset(
+            AppIcons.logo,
+            height: 32.h,
+            fit: BoxFit.contain,
           ),
           Row(
             children: [
-              _buildHeaderIcon(Icons.notifications_none),
+              _buildHeaderIcon(AppIcons.notify),
               SizedBox(width: 12.w),
-              _buildHeaderIcon(Icons.tune),
+              _buildHeaderIcon(AppIcons.filter),
             ],
           ),
         ],
@@ -60,10 +51,10 @@ class DiscoverScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildHeaderIcon(IconData icon) {
+  Widget _buildHeaderIcon(String iconAsset) {
     return Container(
-      width: 40.w,
-      height: 40.w,
+      width: 44.w,
+      height: 44.w,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: AppColor.whiteColor,
@@ -75,7 +66,13 @@ class DiscoverScreen extends StatelessWidget {
           ),
         ],
       ),
-      child: Icon(icon, color: AppColor.gray800, size: 20.sp),
+      alignment: Alignment.center,
+      child: Image.asset(
+        iconAsset,
+        width: 22.w,
+        height: 22.w,
+        color: AppColor.gray800,
+      ),
     );
   }
 
@@ -105,11 +102,7 @@ class DiscoverScreen extends StatelessWidget {
 
           if (i == currentIndex) {
             cardWidgets.add(
-              DiscoverCard(
-                user: user,
-                isTopCard: true,
-                controller: controller,
-              ),
+              DiscoverCard(user: user, isTopCard: true, controller: controller),
             );
           } else if (i == currentIndex + 1) {
             cardWidgets.add(
@@ -156,7 +149,7 @@ class DiscoverScreen extends StatelessWidget {
           }
         }
 
-        return Stack(children: cardWidgets);
+        return Stack(fit: StackFit.expand, children: cardWidgets);
       }),
     );
   }
