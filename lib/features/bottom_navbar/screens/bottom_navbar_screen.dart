@@ -5,6 +5,7 @@ import 'package:donnymaestro/core/constant/icons.dart';
 import 'package:donnymaestro/core/font/style/text_style.dart';
 import 'package:donnymaestro/core/utils/background.dart';
 import 'package:donnymaestro/core/utils/screen_utils.dart';
+import 'package:donnymaestro/features/discover/screen/discover_screen.dart';
 import '../controllers/bottom_navbar_controller.dart';
 import '../widgets/custom_bottom_navbar.dart';
 
@@ -17,7 +18,7 @@ class BottomNavbarScreen extends StatelessWidget {
     final controller = Get.find<BottomNavbarController>();
 
     final List<Widget> screens = [
-      _buildPlaceholder('Discover', AppIcons.discover),
+      const DiscoverScreen(),
       _buildPlaceholder('Matches', AppIcons.matches),
       _buildPlaceholder('Chats', AppIcons.chats),
       _buildPlaceholder('Stories', AppIcons.stories),

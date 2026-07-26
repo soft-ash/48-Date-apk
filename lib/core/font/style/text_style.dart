@@ -84,4 +84,7 @@ class AppTextStyle {
 
   static TextStyle bodyExtraSmall({FontWeight weight = regular}) =>
       _baseStyle(fontSize: 12, lineHeight: 18, fontWeight: weight);
+
+  static TextStyle caption({FontWeight weight = regular}) =>
+      _baseStyle(fontSize: 12, lineHeight: 16, fontWeight: weight);
 }
