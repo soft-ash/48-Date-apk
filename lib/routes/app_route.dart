@@ -1,4 +1,5 @@
 import 'package:donnymaestro/features/auth/phone/screen/phone_screen.dart';
+import 'package:donnymaestro/features/location/screen/location_screen.dart';
 import 'package:donnymaestro/features/welcome/screen/welcome.dart';
 import 'package:donnymaestro/features/splash/screens/splash_screen.dart';
 import 'package:donnymaestro/routes/app_routes.dart';
@@ -9,5 +10,6 @@ abstract final class AppPages {
     GetPage<dynamic>(name: AppRoutes.splash, page: () => const SplashScreen()),
     GetPage<dynamic>(name: AppRoutes.welcome, page: () => const Welcome()),
     GetPage<dynamic>(name: AppRoutes.phone, page: () => const PhoneScreen()),
+    GetPage<dynamic>(name: AppRoutes.location, page: () => const LocationScreen()),
   ];
 }

@@ -16,7 +16,7 @@ class CustomAvatar extends StatelessWidget {
   final bool hasBorder;
 
   const CustomAvatar({
-    Key? key,
+    super.key,
     this.size = 48.0, // Default size
     this.imageUrl,
     this.initials,
@@ -24,7 +24,7 @@ class CustomAvatar extends StatelessWidget {
     this.badge = AvatarBadge.none,
     this.hasShadow = false,
     this.hasBorder = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

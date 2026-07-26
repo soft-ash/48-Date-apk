@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/logger/logger.dart';
+import '../../../../routes/app_routes.dart';
 import '../../phone/controller/phone_controller.dart';
 
 class OtpController extends GetxController {
@@ -74,6 +75,7 @@ class OtpController extends GetxController {
     Future.delayed(const Duration(seconds: 2), () {
       AppLogger.dismiss();
       AppLogger.success('Number verified successfully!');
+      Get.offAllNamed(AppRoutes.location);
     });
   }
 
