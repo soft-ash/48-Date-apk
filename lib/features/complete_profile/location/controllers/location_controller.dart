@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../../../core/logger/logger.dart';
+import 'package:donnymaestro/core/logger/logger.dart';
+import 'package:donnymaestro/routes/app_routes.dart';
+import 'package:donnymaestro/features/complete_profile/common_controller/complete_profile_controller.dart';
 
 class LocationController extends GetxController {
   final RxBool isLoading = false.obs;
+
+  CompleteProfileController get commonController =>
+      Get.find<CompleteProfileController>();
 
   Future<void> onSetLocationServicesPressed() async {
     AppLogger.info("Requesting location services...");
@@ -51,10 +56,10 @@ class LocationController extends GetxController {
         title:
             'Coordinates obtained: ${position.latitude}, ${position.longitude}',
       );
-      // AppLogger.success('Location obtained: ${position.latitude}, ${position.longitude}');
+      // Store in Common Controller for final API body
+      commonController.setLocation(position.latitude, position.longitude);
       AppLogger.success('Location set successfully!');
-
-      // Navigate to next screen when ready
+      Get.toNamed(AppRoutes.nickname);
     } catch (e) {
       AppLogger.dismiss();
       AppLogger.error('Failed to get location: $e');
@@ -63,6 +68,7 @@ class LocationController extends GetxController {
 
   void onNotNowPressed() {
     AppLogger.info("User skipped location setup");
-    // Navigate to next screen when ready
+    commonController.skipLocation();
+    Get.toNamed(AppRoutes.nickname);
   }
 }

@@ -1,5 +1,8 @@
 import 'package:donnymaestro/features/auth/phone/screen/phone_screen.dart';
-import 'package:donnymaestro/features/location/screen/location_screen.dart';
+import 'package:donnymaestro/features/complete_profile/location/screen/location_screen.dart';
+import 'package:donnymaestro/features/complete_profile/nickname/screen/nickname_screen.dart';
+import 'package:donnymaestro/features/complete_profile/real_name/screen/real_name_screen.dart';
+import 'package:donnymaestro/features/complete_profile/binding/complete_profile_binding.dart';
 import 'package:donnymaestro/features/welcome/screen/welcome.dart';
 import 'package:donnymaestro/features/splash/screens/splash_screen.dart';
 import 'package:donnymaestro/routes/app_routes.dart';
@@ -10,6 +13,20 @@ abstract final class AppPages {
     GetPage<dynamic>(name: AppRoutes.splash, page: () => const SplashScreen()),
     GetPage<dynamic>(name: AppRoutes.welcome, page: () => const Welcome()),
     GetPage<dynamic>(name: AppRoutes.phone, page: () => const PhoneScreen()),
-    GetPage<dynamic>(name: AppRoutes.location, page: () => const LocationScreen()),
+    GetPage<dynamic>(
+      name: AppRoutes.location,
+      page: () => const LocationScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.nickname,
+      page: () => const NicknameScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.realName,
+      page: () => const RealNameScreen(),
+      binding: CompleteProfileBinding(),
+    ),
   ];
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../core/constant/colors.dart';
-import '../../../../core/utils/background.dart';
-import '../../../../core/utils/screen_utils.dart';
-import '../../../../core/widgets/fade_in_up.dart';
+import '../../../../../core/constant/colors.dart';
+import '../../../../../core/utils/background.dart';
+import '../../../../../core/utils/screen_utils.dart';
+import '../../../../../core/widgets/fade_in_up.dart';
 import '../controllers/location_controller.dart';
 import '../widgets/location_actions.dart';
 import '../widgets/location_header.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../core/constant/colors.dart';
-import '../../../../core/utils/screen_utils.dart';
-import '../../../../core/widgets/custom_button.dart';
+import '../../../../../core/constant/colors.dart';
+import '../../../../../core/utils/screen_utils.dart';
+import '../../../../../core/widgets/custom_button.dart';
 import '../controllers/location_controller.dart';
 
 class LocationActions extends StatelessWidget {
