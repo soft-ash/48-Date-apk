@@ -8,6 +8,10 @@ import 'package:donnymaestro/features/complete_profile/did_drink/screen/did_drin
 import 'package:donnymaestro/features/complete_profile/identify/screen/identify_screen.dart';
 import 'package:donnymaestro/features/complete_profile/have_kids/screen/have_kids_screen.dart';
 import 'package:donnymaestro/features/complete_profile/who_to_meet/screen/who_to_meet_screen.dart';
+import 'package:donnymaestro/features/complete_profile/interest/screen/interest_screen.dart';
+import 'package:donnymaestro/features/complete_profile/height/screen/height_screen.dart';
+import 'package:donnymaestro/features/complete_profile/weight/screen/weight_screen.dart';
+import 'package:donnymaestro/features/complete_profile/looking_for/screen/looking_for_screen.dart';
 import 'package:donnymaestro/features/complete_profile/binding/complete_profile_binding.dart';
 import 'package:donnymaestro/features/welcome/screen/welcome.dart';
 import 'package:donnymaestro/features/splash/screens/splash_screen.dart';
@@ -62,6 +66,26 @@ abstract final class AppPages {
     GetPage<dynamic>(
       name: AppRoutes.whoToMeet,
       page: () => const WhoToMeetScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.interest,
+      page: () => const InterestScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.height,
+      page: () => const HeightScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.weight,
+      page: () => const WeightScreen(),
+      binding: CompleteProfileBinding(),
+    ),
+    GetPage<dynamic>(
+      name: AppRoutes.lookingFor,
+      page: () => const LookingForScreen(),
       binding: CompleteProfileBinding(),
     ),
   ];

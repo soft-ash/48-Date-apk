@@ -5,12 +5,14 @@ import '../utils/screen_utils.dart';
 
 class SelectionOptionCard extends StatelessWidget {
   final String text;
+  final String? subtitle;
   final bool isSelected;
   final VoidCallback onTap;
 
   const SelectionOptionCard({
     super.key,
     required this.text,
+    this.subtitle,
     required this.isSelected,
     required this.onTap,
   });
@@ -37,13 +39,34 @@ class SelectionOptionCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: Text(
-                text,
-                style: AppTextStyle.bodyMedium(
-                  weight: isSelected ? AppTextStyle.medium : AppTextStyle.regular,
-                ).copyWith(
-                  color: isSelected ? AppColor.primary500 : AppColor.gray800,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    text,
+                    style: AppTextStyle.bodyMedium(
+                      weight: isSelected
+                          ? AppTextStyle.medium
+                          : AppTextStyle.regular,
+                    ).copyWith(
+                      color:
+                          isSelected ? AppColor.primary500 : AppColor.gray800,
+                    ),
+                  ),
+                  if (subtitle != null) ...[
+                    SizedBox(height: 4.h),
+                    Text(
+                      subtitle!,
+                      style: AppTextStyle.bodySmall(
+                        weight: AppTextStyle.regular,
+                      ).copyWith(
+                        color:
+                            isSelected ? AppColor.gray700 : AppColor.gray500,
+                      ),
+                    ),
+                  ],
+                ],
               ),
             ),
             if (isSelected)

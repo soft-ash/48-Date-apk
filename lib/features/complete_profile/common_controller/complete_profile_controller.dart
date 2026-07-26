@@ -122,7 +122,35 @@ class CompleteProfileController extends GetxController {
   }
 
   // ==========================================
-  // 5. Unified API Submission
+  // 6. Final Step Variables (Interests, Height, Weight, Looking For)
+  // ==========================================
+  final RxList<String> interests = <String>[].obs;
+  final RxnString height = RxnString();
+  final RxnString weight = RxnString();
+  final RxnString lookingFor = RxnString();
+
+  void setInterests(List<String> values) {
+    interests.assignAll(values);
+    AppLogger.consoleInfo(title: "setInterests", subtitle: "Stored: $values");
+  }
+
+  void setHeight(String value) {
+    height.value = value;
+    AppLogger.consoleInfo(title: "setHeight", subtitle: "Stored: $value");
+  }
+
+  void setWeight(String value) {
+    weight.value = value;
+    AppLogger.consoleInfo(title: "setWeight", subtitle: "Stored: $value");
+  }
+
+  void setLookingFor(String value) {
+    lookingFor.value = value;
+    AppLogger.consoleInfo(title: "setLookingFor", subtitle: "Stored: $value");
+  }
+
+  // ==========================================
+  // 7. Unified API Submission
   // ==========================================
   Future<void> submitCompleteProfile() async {
     final Map<String, dynamic> apiBody = {
@@ -143,7 +171,10 @@ class CompleteProfileController extends GetxController {
       'have_kids': haveKids.value,
       'future_kids_plan': futureKidsPlan.value,
       'who_to_meet': whoToMeet.value,
-      // Future fields will be added here
+      'interests': interests.toList(),
+      'height': height.value,
+      'weight': weight.value,
+      'looking_for': lookingFor.value,
     };
 
     AppLogger.consoleInfo(

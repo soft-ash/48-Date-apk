@@ -9,6 +9,10 @@ import 'package:donnymaestro/features/complete_profile/did_drink/controllers/did
 import 'package:donnymaestro/features/complete_profile/identify/controllers/identify_controller.dart';
 import 'package:donnymaestro/features/complete_profile/have_kids/controllers/have_kids_controller.dart';
 import 'package:donnymaestro/features/complete_profile/who_to_meet/controllers/who_to_meet_controller.dart';
+import 'package:donnymaestro/features/complete_profile/interest/controllers/interest_controller.dart';
+import 'package:donnymaestro/features/complete_profile/height/controllers/height_controller.dart';
+import 'package:donnymaestro/features/complete_profile/weight/controllers/weight_controller.dart';
+import 'package:donnymaestro/features/complete_profile/looking_for/controllers/looking_for_controller.dart';
 
 class CompleteProfileBinding extends Bindings {
   @override
@@ -26,5 +30,9 @@ class CompleteProfileBinding extends Bindings {
     Get.lazyPut(() => IdentifyController(), fenix: true);
     Get.lazyPut(() => HaveKidsController(), fenix: true);
     Get.lazyPut(() => WhoToMeetController(), fenix: true);
+    Get.lazyPut(() => InterestController(), fenix: true);
+    Get.lazyPut(() => HeightController(), fenix: true);
+    Get.lazyPut(() => WeightController(), fenix: true);
+    Get.lazyPut(() => LookingForController(), fenix: true);
   }
 }

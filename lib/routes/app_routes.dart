@@ -11,4 +11,8 @@ abstract final class AppRoutes {
   static const identify = '/identify';
   static const haveKids = '/have-kids';
   static const whoToMeet = '/who-to-meet';
+  static const interest = '/interest';
+  static const height = '/height';
+  static const weight = '/weight';
+  static const lookingFor = '/looking-for';
 }

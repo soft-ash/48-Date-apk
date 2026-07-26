@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/logger/logger.dart';
 import 'package:donnymaestro/features/complete_profile/common_controller/complete_profile_controller.dart';
+import 'package:donnymaestro/routes/app_routes.dart';
 
 class WhoToMeetController extends GetxController {
   final RxnString selectedOption = RxnString();
@@ -28,6 +29,6 @@ class WhoToMeetController extends GetxController {
     }
 
     commonController.setWhoToMeet(selectedOption.value!);
-    // TODO: Navigate to next onboarding screen when created
+    Get.toNamed(AppRoutes.interest);
   }
 }
