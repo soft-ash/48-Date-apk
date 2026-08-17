@@ -17,8 +17,8 @@ class FadeInUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final totalDuration = duration + delay;
-    final delayFraction = totalDuration.inMilliseconds > 0 
-        ? delay.inMilliseconds / totalDuration.inMilliseconds 
+    final delayFraction = totalDuration.inMilliseconds > 0
+        ? delay.inMilliseconds / totalDuration.inMilliseconds
         : 0.0;
 
     return TweenAnimationBuilder<double>(

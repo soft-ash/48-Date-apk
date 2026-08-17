@@ -12,11 +12,7 @@ class MatchCard extends StatelessWidget {
   final MatchModel match;
   final int index;
 
-  const MatchCard({
-    super.key,
-    required this.match,
-    this.index = 0,
-  });
+  const MatchCard({super.key, required this.match, this.index = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +63,11 @@ class MatchCard extends StatelessWidget {
                           ),
                           errorWidget: (context, url, error) => Container(
                             color: AppColor.gray200,
-                            child: Icon(Icons.person, color: AppColor.gray500, size: 32.sp),
+                            child: Icon(
+                              Icons.person,
+                              color: AppColor.gray500,
+                              size: 32.sp,
+                            ),
                           ),
                         ),
                       ),
@@ -100,9 +100,9 @@ class MatchCard extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 "${match.name}, ${match.age}",
-                                style: AppTextStyle.bodyLarge(weight: AppTextStyle.bold).copyWith(
-                                  color: AppColor.gray900,
-                                ),
+                                style: AppTextStyle.bodyLarge(
+                                  weight: AppTextStyle.bold,
+                                ).copyWith(color: AppColor.gray900),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -117,9 +117,9 @@ class MatchCard extends StatelessWidget {
                         SizedBox(height: 4.h),
                         Text(
                           match.lastMessage,
-                          style: AppTextStyle.bodySmall(weight: AppTextStyle.regular).copyWith(
-                            color: AppColor.gray600,
-                          ),
+                          style: AppTextStyle.bodySmall(
+                            weight: AppTextStyle.regular,
+                          ).copyWith(color: AppColor.gray600),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -127,9 +127,9 @@ class MatchCard extends StatelessWidget {
                           SizedBox(height: 6.h),
                           Text(
                             match.warningText!,
-                            style: AppTextStyle.caption(weight: AppTextStyle.semiBold).copyWith(
-                              color: AppColor.primary500,
-                            ),
+                            style: AppTextStyle.caption(
+                              weight: AppTextStyle.semiBold,
+                            ).copyWith(color: AppColor.primary500),
                           ),
                         ],
                       ],

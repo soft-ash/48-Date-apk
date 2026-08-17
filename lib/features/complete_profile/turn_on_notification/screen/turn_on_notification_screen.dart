@@ -70,7 +70,8 @@ class TurnOnNotificationScreen extends StatelessWidget {
                                     subtitle:
                                         'Get alerts for new matches and most importantly when a 48-hour timer is running low.',
                                     textAlign: TextAlign.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                   ),
                                 ),
                               ],

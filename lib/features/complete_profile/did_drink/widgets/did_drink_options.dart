@@ -15,9 +15,7 @@ class DidDrinkOptions extends GetView<DidDrinkController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomHeader(
-          title: 'Do You Drink Alcohol?',
-        ),
+        const CustomHeader(title: 'Do You Drink Alcohol?'),
         SizedBox(height: 24.h),
         ...controller.options.map((option) {
           return Padding(

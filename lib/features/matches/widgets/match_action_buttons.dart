@@ -9,10 +9,7 @@ import '../models/match_model.dart';
 class MatchActionButtons extends StatelessWidget {
   final MatchModel match;
 
-  const MatchActionButtons({
-    super.key,
-    required this.match,
-  });
+  const MatchActionButtons({super.key, required this.match});
 
   @override
   Widget build(BuildContext context) {
@@ -90,18 +87,12 @@ class MatchActionButtons extends StatelessWidget {
 
     return SizedBox(
       height: 48.h,
-      child: Row(
-        children: buttons,
-      ),
+      child: Row(children: buttons),
     );
   }
 
   Widget _buildDivider() {
-    return Container(
-      width: 1,
-      height: 24.h,
-      color: AppColor.gray200,
-    );
+    return Container(width: 1, height: 24.h, color: AppColor.gray200);
   }
 
   Widget _buildActionButton({
@@ -127,9 +118,7 @@ class MatchActionButtons extends StatelessWidget {
                 label,
                 style: AppTextStyle.bodySmall(
                   weight: isBold ? AppTextStyle.bold : AppTextStyle.medium,
-                ).copyWith(
-                  color: textColor ?? color,
-                ),
+                ).copyWith(color: textColor ?? color),
               ),
             ],
           ),

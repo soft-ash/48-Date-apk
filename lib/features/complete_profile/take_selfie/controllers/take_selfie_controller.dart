@@ -29,15 +29,15 @@ class TakeSelfieController extends GetxController {
         preferredCameraDevice: CameraDevice.front,
         imageQuality: 80,
       );
-      capturedImagePath.value =
-          photo?.path ?? 'demo_selfie_verified.jpg';
+      capturedImagePath.value = photo?.path ?? 'demo_selfie_verified.jpg';
     } catch (e) {
       AppLogger.error('Failed to capture selfie: $e');
       capturedImagePath.value = 'demo_selfie_verified.jpg';
     }
 
     commonController.setSelfie(
-        capturedImagePath.value ?? 'demo_selfie_verified.jpg');
+      capturedImagePath.value ?? 'demo_selfie_verified.jpg',
+    );
     Get.toNamed(AppRoutes.complete);
   }
 }
