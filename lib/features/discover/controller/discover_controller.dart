@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:donnymaestro/core/logger/logger.dart';
 import '../model/discover_user_model.dart';
 import 'discover_worker.dart';
+import 'package:logger_barta/logger_barta.dart';
 
 class DiscoverController extends GetxController {
   final RxList<DiscoverUserModel> users = <DiscoverUserModel>[].obs;
@@ -35,7 +35,7 @@ class DiscoverController extends GetxController {
       users.assignAll(newUsers);
       _precacheImages(newUsers);
     } catch (e) {
-      AppLogger.consoleInfo(title: "Discover Error", subtitle: e.toString());
+      BartaLog.error(e.toString(), title: "Discover Error");
     } finally {
       isLoading.value = false;
     }
@@ -54,7 +54,7 @@ class DiscoverController extends GetxController {
       users.addAll(newUsers);
       _precacheImages(newUsers);
     } catch (e) {
-      AppLogger.consoleInfo(title: "Pagination Error", subtitle: e.toString());
+      BartaLog.error(e.toString(), title: "Pagination Error");
     } finally {
       isMoreLoading.value = false;
     }
@@ -69,15 +69,13 @@ class DiscoverController extends GetxController {
       }
       for (final img in user.postImages) {
         if (img.isNotEmpty) {
-          CachedNetworkImageProvider(
-            img,
-          ).resolve(ImageConfiguration.empty);
+          CachedNetworkImageProvider(img).resolve(ImageConfiguration.empty);
         }
       }
     }
-    AppLogger.consoleInfo(
-      title: "Image Prefetch",
-      subtitle: "Precached images for ${newUsers.length} users",
+    BartaLog.debug(
+      "Precached images for ${newUsers.length} users",
+      tag: "Image Prefetch",
     );
   }
 
@@ -110,9 +108,9 @@ class DiscoverController extends GetxController {
     isDragging.value = false;
     dragX.value = 600.0;
     dragY.value = 40.0;
-    AppLogger.consoleInfo(
-      title: "Like Profile",
-      subtitle: "Liked ${users[currentIndex.value].name}",
+    BartaLog.debug(
+      "Liked ${users[currentIndex.value].name}",
+      tag: "Like Profile",
     );
     Future.delayed(const Duration(milliseconds: 280), _nextCard);
   }
@@ -123,9 +121,9 @@ class DiscoverController extends GetxController {
     isDragging.value = false;
     dragX.value = -600.0;
     dragY.value = 40.0;
-    AppLogger.consoleInfo(
-      title: "Reject Profile",
-      subtitle: "Rejected ${users[currentIndex.value].name}",
+    BartaLog.debug(
+      "Rejected ${users[currentIndex.value].name}",
+      tag: "Reject Profile",
     );
     Future.delayed(const Duration(milliseconds: 280), _nextCard);
   }

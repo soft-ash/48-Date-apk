@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:donnymaestro/core/logger/logger.dart';
 import 'package:donnymaestro/routes/app_routes.dart';
+import 'package:logger_barta/logger_barta.dart';
 
 class CompleteProfileController extends GetxController {
   // ==========================================
@@ -14,9 +15,9 @@ class CompleteProfileController extends GetxController {
     latitude.value = lat;
     longitude.value = lng;
     isLocationSkipped.value = false;
-    AppLogger.consoleInfo(
-      title: "setLocation",
-      subtitle: "CommonController: Stored coordinates ($lat, $lng)",
+    BartaLog.debug(
+      "CommonController: Stored coordinates ($lat, $lng)",
+      tag: "setLocation",
     );
   }
 
@@ -24,9 +25,9 @@ class CompleteProfileController extends GetxController {
     latitude.value = null;
     longitude.value = null;
     isLocationSkipped.value = true;
-    AppLogger.consoleInfo(
-      title: "skipLocation",
-      subtitle: "CommonController: Marked location as skipped",
+    BartaLog.debug(
+      "CommonController: Marked location as skipped",
+      tag: "skipLocation",
     );
   }
 
@@ -37,9 +38,9 @@ class CompleteProfileController extends GetxController {
 
   void setNickname(String name) {
     nickname.value = name;
-    AppLogger.consoleInfo(
-      title: "setNickname",
-      subtitle: "CommonController: Stored nickname ($name)",
+    BartaLog.debug(
+      "CommonController: Stored nickname ($name)",
+      tag: "setNickname",
     );
   }
 
@@ -52,9 +53,9 @@ class CompleteProfileController extends GetxController {
   void setRealName(String first, String last) {
     firstName.value = first;
     lastName.value = last;
-    AppLogger.consoleInfo(
-      title: "setRealName",
-      subtitle: "CommonController: Stored real name ($first $last)",
+    BartaLog.debug(
+      "CommonController: Stored real name ($first $last)",
+      tag: "setRealName",
     );
   }
 
@@ -79,10 +80,9 @@ class CompleteProfileController extends GetxController {
     birthYear.value = year;
     calculatedAge.value = age;
     occupation.value = job;
-    AppLogger.consoleInfo(
-      title: "setBirthdayAndOccupation",
-      subtitle:
-          "CommonController: Stored birthday ($month/$day/$year, Age: $age) & occupation ($job)",
+    BartaLog.debug(
+      "CommonController: Stored birthday ($month/$day/$year, Age: $age) & occupation ($job)",
+      tag: "setBirthdayAndOccupation",
     );
   }
 
@@ -98,28 +98,28 @@ class CompleteProfileController extends GetxController {
 
   void setSmokingHabit(String value) {
     smokingHabit.value = value;
-    AppLogger.consoleInfo(title: "setSmokingHabit", subtitle: "Stored: $value");
+    BartaLog.debug("Stored: $value", tag: "setSmokingHabit");
   }
 
   void setDrinkingHabit(String value) {
     drinkingHabit.value = value;
-    AppLogger.consoleInfo(title: "setDrinkingHabit", subtitle: "Stored: $value");
+    BartaLog.debug("Stored: $value", tag: "setDrinkingHabit");
   }
 
   void setGenderIdentity(String value) {
     genderIdentity.value = value;
-    AppLogger.consoleInfo(title: "setGenderIdentity", subtitle: "Stored: $value");
+    BartaLog.debug("Stored: $value", tag: "setGenderIdentity");
   }
 
   void setKidsInfo({required String kids, required String plan}) {
     haveKids.value = kids;
     futureKidsPlan.value = plan;
-    AppLogger.consoleInfo(title: "setKidsInfo", subtitle: "Kids: $kids, Plan: $plan");
+    BartaLog.debug("Kids: $kids, Plan: $plan", tag: "setKidsInfo");
   }
 
   void setWhoToMeet(String value) {
     whoToMeet.value = value;
-    AppLogger.consoleInfo(title: "setWhoToMeet", subtitle: "Stored: $value");
+    BartaLog.debug("Stored: $value", tag: "setWhoToMeet");
   }
 
   // ==========================================
@@ -132,22 +132,22 @@ class CompleteProfileController extends GetxController {
 
   void setInterests(List<String> values) {
     interests.assignAll(values);
-    AppLogger.consoleInfo(title: "setInterests", subtitle: "Stored: $values");
+    BartaLog.debug("Stored: $values", tag: "setInterests");
   }
 
   void setHeight(String value) {
     height.value = value;
-    AppLogger.consoleInfo(title: "setHeight", subtitle: "Stored: $value");
+    BartaLog.debug("Stored: $value", tag: "setHeight");
   }
 
   void setWeight(String value) {
     weight.value = value;
-    AppLogger.consoleInfo(title: "setWeight", subtitle: "Stored: $value");
+    BartaLog.debug("Stored: $value", tag: "setWeight");
   }
 
   void setLookingFor(String value) {
     lookingFor.value = value;
-    AppLogger.consoleInfo(title: "setLookingFor", subtitle: "Stored: $value");
+    BartaLog.debug("Stored: $value", tag: "setLookingFor");
   }
 
   // ==========================================
@@ -157,7 +157,7 @@ class CompleteProfileController extends GetxController {
 
   void setPhotos(List<String> values) {
     photos.assignAll(values);
-    AppLogger.consoleInfo(title: "setPhotos", subtitle: "Stored ${values.length} photos");
+    BartaLog.debug("Stored ${values.length} photos", tag: "setPhotos");
   }
 
   // ==========================================
@@ -169,13 +169,13 @@ class CompleteProfileController extends GetxController {
   void setSelfie(String path) {
     selfiePath.value = path;
     isSelfieSkipped.value = false;
-    AppLogger.consoleInfo(title: "setSelfie", subtitle: "Stored selfie: $path");
+    BartaLog.debug("Stored selfie: $path", tag: "setSelfie");
   }
 
   void skipSelfie() {
     selfiePath.value = null;
     isSelfieSkipped.value = true;
-    AppLogger.consoleInfo(title: "skipSelfie", subtitle: "Skipped selfie verification");
+    BartaLog.debug("Skipped selfie verification", tag: "skipSelfie");
   }
 
   // ==========================================
@@ -185,7 +185,7 @@ class CompleteProfileController extends GetxController {
 
   void setNotifications(bool enabled) {
     notificationsEnabled.value = enabled;
-    AppLogger.consoleInfo(title: "setNotifications", subtitle: "Notifications enabled: $enabled");
+    BartaLog.debug("Notifications enabled: $enabled", tag: "setNotifications");
   }
 
   // ==========================================
@@ -220,9 +220,9 @@ class CompleteProfileController extends GetxController {
       'notifications_enabled': notificationsEnabled.value,
     };
 
-    AppLogger.consoleInfo(
-      title: "submitCompleteProfile",
-      subtitle: "Submitting Complete Profile API Payload: $apiBody",
+    BartaLog.debug(
+      "Submitting Complete Profile API Payload: $apiBody",
+      tag: "submitCompleteProfile",
     );
     AppLogger.loading(status: 'Completing Profile...');
 

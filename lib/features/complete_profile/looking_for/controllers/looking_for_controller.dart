@@ -8,22 +8,13 @@ class LookingForController extends GetxController {
   final RxnString errorText = RxnString();
 
   final List<Map<String, String>> options = [
-    {
-      'title': 'A real relationship',
-      'subtitle': 'Ready for something serious',
-    },
+    {'title': 'A real relationship', 'subtitle': 'Ready for something serious'},
     {
       'title': 'Something meaningful',
       'subtitle': 'Open, but taking it seriously',
     },
-    {
-      'title': 'See where it goes',
-      'subtitle': 'No pressure, real connection',
-    },
-    {
-      'title': 'New friends first',
-      'subtitle': 'Building a genuine bond',
-    },
+    {'title': 'See where it goes', 'subtitle': 'No pressure, real connection'},
+    {'title': 'New friends first', 'subtitle': 'Building a genuine bond'},
   ];
 
   CompleteProfileController get commonController =>
