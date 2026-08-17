@@ -8,11 +8,7 @@ class MatchBadge extends StatelessWidget {
   final MatchStatus status;
   final String text;
 
-  const MatchBadge({
-    super.key,
-    required this.status,
-    required this.text,
-  });
+  const MatchBadge({super.key, required this.status, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -58,19 +54,14 @@ class MatchBadge extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (icon != null) ...[
-            Icon(
-              icon,
-              size: 13.sp,
-              color: textColor,
-            ),
+            Icon(icon, size: 13.sp, color: textColor),
             SizedBox(width: 4.w),
           ],
           Text(
             text,
-            style: AppTextStyle.caption(weight: AppTextStyle.bold).copyWith(
-              color: textColor,
-              fontSize: 11.sp,
-            ),
+            style: AppTextStyle.caption(
+              weight: AppTextStyle.bold,
+            ).copyWith(color: textColor, fontSize: 11.sp),
           ),
         ],
       ),

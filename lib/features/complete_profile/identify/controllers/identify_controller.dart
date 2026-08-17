@@ -7,11 +7,7 @@ class IdentifyController extends GetxController {
   final RxnString selectedOption = RxnString();
   final RxnString errorText = RxnString();
 
-  final List<String> options = [
-    'Women',
-    'Man',
-    'Not prefer to say',
-  ];
+  final List<String> options = ['Women', 'Man', 'Not prefer to say'];
 
   CompleteProfileController get commonController =>
       Get.find<CompleteProfileController>();

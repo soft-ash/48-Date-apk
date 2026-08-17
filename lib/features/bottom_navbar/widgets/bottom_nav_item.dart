@@ -56,12 +56,16 @@ class BottomNavItem extends StatelessWidget {
               AnimatedDefaultTextStyle(
                 duration: const Duration(milliseconds: 250),
                 curve: Curves.easeInOut,
-                style: AppTextStyle.bodySmall(
-                  weight:
-                      isSelected ? AppTextStyle.semiBold : AppTextStyle.medium,
-                ).copyWith(
-                  color: isSelected ? AppColor.primary500 : AppColor.gray800,
-                ),
+                style:
+                    AppTextStyle.bodySmall(
+                      weight: isSelected
+                          ? AppTextStyle.semiBold
+                          : AppTextStyle.medium,
+                    ).copyWith(
+                      color: isSelected
+                          ? AppColor.primary500
+                          : AppColor.gray800,
+                    ),
                 child: Text(label),
               ),
             ],

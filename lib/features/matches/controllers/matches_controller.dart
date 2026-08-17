@@ -9,6 +9,7 @@ import '../models/match_model.dart';
 import '../widgets/match_detail_bottom_sheet.dart';
 import '../widgets/match_rate_dialog.dart';
 import 'matches_worker.dart';
+import 'package:logger_barta/logger_barta.dart';
 
 class MatchesController extends GetxController {
   final RxList<MatchModel> allMatches = <MatchModel>[].obs;
@@ -25,10 +26,12 @@ class MatchesController extends GetxController {
 
   /// Dynamic active count for header subtitle
   int get activeCount => allMatches
-      .where((m) =>
-          m.status == MatchStatus.active ||
-          m.status == MatchStatus.expiringSoon ||
-          m.status == MatchStatus.dateSet)
+      .where(
+        (m) =>
+            m.status == MatchStatus.active ||
+            m.status == MatchStatus.expiringSoon ||
+            m.status == MatchStatus.dateSet,
+      )
       .length;
 
   /// Filtered list based on selected tab
@@ -58,7 +61,7 @@ class MatchesController extends GetxController {
       allMatches.assignAll(newMatches);
       _precacheImages(newMatches);
     } catch (e) {
-      AppLogger.consoleInfo(title: "Matches Load Error", subtitle: e.toString());
+      BartaLog.error(e.toString(), title: "Matches Load Error");
     } finally {
       isLoading.value = false;
     }
@@ -77,9 +80,12 @@ class MatchesController extends GetxController {
       final newMatches = await compute(parseMatchesInIsolate, rawMaps);
       allMatches.assignAll(newMatches);
       _precacheImages(newMatches);
-      AppLogger.consoleInfo(title: "Matches Refreshed", subtitle: "Loaded ${newMatches.length} matches");
+      BartaLog.debug(
+        "Loaded ${newMatches.length} matches",
+        tag: "Matches Refreshed",
+      );
     } catch (e) {
-      AppLogger.consoleInfo(title: "Refresh Error", subtitle: e.toString());
+      BartaLog.error(e.toString(), title: "Refresh Error");
     } finally {
       isRefreshing.value = false;
     }
@@ -88,17 +94,20 @@ class MatchesController extends GetxController {
   void _precacheImages(List<MatchModel> matches) {
     for (final match in matches) {
       if (match.profileImage.isNotEmpty) {
-        CachedNetworkImageProvider(match.profileImage).resolve(ImageConfiguration.empty);
+        CachedNetworkImageProvider(
+          match.profileImage,
+        ).resolve(ImageConfiguration.empty);
       }
       if (match.dateDetails?.matchPartnerAvatar != null &&
           match.dateDetails!.matchPartnerAvatar.isNotEmpty) {
-        CachedNetworkImageProvider(match.dateDetails!.matchPartnerAvatar)
-            .resolve(ImageConfiguration.empty);
+        CachedNetworkImageProvider(
+          match.dateDetails!.matchPartnerAvatar,
+        ).resolve(ImageConfiguration.empty);
       }
     }
-    AppLogger.consoleInfo(
-      title: "Matches Image Prefetch",
-      subtitle: "Precached images for ${matches.length} matches",
+    BartaLog.debug(
+      "Precached images for ${matches.length} matches",
+      tag: "Matches Image Prefetch",
     );
   }
 
@@ -106,17 +115,14 @@ class MatchesController extends GetxController {
     if (selectedFilter.value == tab) return;
     HapticFeedback.lightImpact();
     selectedFilter.value = tab;
-    AppLogger.consoleInfo(
-      title: "Filter Changed",
-      subtitle: "Switched to tab: $tab",
-    );
+    BartaLog.debug("Switched to tab: $tab", tag: "Filter Changed");
   }
 
   // --- Action Button Handlers ---
 
   void openMessage(MatchModel match) {
     HapticFeedback.lightImpact();
-    AppLogger.consoleInfo(title: "Open Message", subtitle: "Chat with ${match.name}");
+    BartaLog.debug("Chat with ${match.name}", tag: "Open Message");
     EasyLoading.showToast(
       "Opening chat with ${match.name}...",
       toastPosition: EasyLoadingToastPosition.bottom,
@@ -125,13 +131,13 @@ class MatchesController extends GetxController {
 
   void planDate(MatchModel match) {
     HapticFeedback.lightImpact();
-    AppLogger.consoleInfo(title: "Plan Date", subtitle: "Planning date with ${match.name}");
+    BartaLog.debug("Planning date with ${match.name}", tag: "Plan Date");
     viewDetails(match);
   }
 
   void viewDetails(MatchModel match) {
     HapticFeedback.lightImpact();
-    AppLogger.consoleInfo(title: "View Details", subtitle: "Viewing details for ${match.name}");
+    BartaLog.debug("Viewing details for ${match.name}", tag: "View Details");
     Get.bottomSheet(
       MatchDetailBottomSheet(match: match, controller: this),
       isScrollControlled: true,
@@ -144,7 +150,8 @@ class MatchesController extends GetxController {
     Get.defaultDialog(
       title: "Cancel Date",
       titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-      middleText: "Are you sure you want to cancel your scheduled date with ${match.name}?",
+      middleText:
+          "Are you sure you want to cancel your scheduled date with ${match.name}?",
       middleTextStyle: const TextStyle(fontSize: 14),
       textConfirm: "Yes, Cancel",
       textCancel: "Keep Date",
@@ -176,9 +183,7 @@ class MatchesController extends GetxController {
 
   void rateDate(MatchModel match) {
     HapticFeedback.lightImpact();
-    Get.dialog(
-      MatchRateDialog(match: match, onSubmit: _submitRating),
-    );
+    Get.dialog(MatchRateDialog(match: match, onSubmit: _submitRating));
   }
 
   void _submitRating(MatchModel match, int stars, String feedback) async {
