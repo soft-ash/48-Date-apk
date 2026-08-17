@@ -40,12 +40,13 @@ class MatchesScreen extends StatelessWidget {
                 onRefresh: controller.refreshMatches,
                 color: AppColor.primary500,
                 child: ListView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                  itemCount: matches.length,
-                  itemBuilder: (context, index) => MatchCard(
-                    match: matches[index],
-                    index: index,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 8.h,
                   ),
+                  itemCount: matches.length,
+                  itemBuilder: (context, index) =>
+                      MatchCard(match: matches[index], index: index),
                 ),
               );
             }),

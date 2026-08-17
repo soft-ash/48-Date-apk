@@ -21,17 +21,16 @@ class OtpHeader extends GetView<OtpController> {
         SizedBox(height: 12.h),
         RichText(
           text: TextSpan(
-            style: AppTextStyle.bodyMedium(weight: AppTextStyle.regular).copyWith(
-              color: AppColor.gray600,
-              height: 1.5,
-            ),
+            style: AppTextStyle.bodyMedium(
+              weight: AppTextStyle.regular,
+            ).copyWith(color: AppColor.gray600, height: 1.5),
             children: [
               const TextSpan(text: "Enter the code we've sent by text to\n"),
               TextSpan(
                 text: "${controller.formattedPhoneNumber} ",
-                style: AppTextStyle.bodyMedium(weight: AppTextStyle.medium).copyWith(
-                  color: AppColor.gray900,
-                ),
+                style: AppTextStyle.bodyMedium(
+                  weight: AppTextStyle.medium,
+                ).copyWith(color: AppColor.gray900),
               ),
               WidgetSpan(
                 alignment: PlaceholderAlignment.baseline,
@@ -40,13 +39,14 @@ class OtpHeader extends GetView<OtpController> {
                   onTap: () => Get.back(),
                   child: Text(
                     "Change",
-                    style: AppTextStyle.bodyMedium(
-                      weight: AppTextStyle.semiBold,
-                    ).copyWith(
-                      color: AppColor.error500,
-                      decoration: TextDecoration.underline,
-                      decorationColor: AppColor.error500,
-                    ),
+                    style:
+                        AppTextStyle.bodyMedium(
+                          weight: AppTextStyle.semiBold,
+                        ).copyWith(
+                          color: AppColor.error500,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColor.error500,
+                        ),
                   ),
                 ),
               ),

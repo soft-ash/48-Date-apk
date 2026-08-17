@@ -54,16 +54,14 @@ class _MatchRateDialogState extends State<MatchRateDialog> {
 
             Text(
               "Rate Your Date",
-              style: AppTextStyle.h6(weight: AppTextStyle.bold).copyWith(
-                color: AppColor.gray900,
-              ),
+              style: AppTextStyle.h6(
+                weight: AppTextStyle.bold,
+              ).copyWith(color: AppColor.gray900),
             ),
             SizedBox(height: 4.h),
             Text(
               "How was your time with ${widget.match.name}?",
-              style: AppTextStyle.bodySmall().copyWith(
-                color: AppColor.gray600,
-              ),
+              style: AppTextStyle.bodySmall().copyWith(color: AppColor.gray600),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 20.h),
@@ -100,7 +98,9 @@ class _MatchRateDialogState extends State<MatchRateDialog> {
               maxLines: 3,
               decoration: InputDecoration(
                 hintText: "Add optional feedback...",
-                hintStyle: AppTextStyle.bodySmall().copyWith(color: AppColor.gray400),
+                hintStyle: AppTextStyle.bodySmall().copyWith(
+                  color: AppColor.gray400,
+                ),
                 filled: true,
                 fillColor: AppColor.gray50,
                 border: OutlineInputBorder(

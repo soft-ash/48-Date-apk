@@ -52,7 +52,8 @@ List<Map<String, dynamic>> generateDummyMatchesInIsolate(int page) {
       'whenTime': 'Sunday 11:00 AM',
       'gettingThere': '8 min • Directions available',
       'matchPartnerHandle': 'Sunflower',
-      'matchPartnerAvatar': 'https://picsum.photos/seed/partner_botanical/400/400',
+      'matchPartnerAvatar':
+          'https://picsum.photos/seed/partner_botanical/400/400',
     },
   ];
 
@@ -61,12 +62,12 @@ List<Map<String, dynamic>> generateDummyMatchesInIsolate(int page) {
     final int age = 24 + (idx % 6);
     final String seedName = '${names[idx]}_match_$startIndex$i';
     final String partnerSeed = 'partner_${names[idx]}_$startIndex$i';
-    
+
     // Determine status based on index to showcase all design variations
     String status = 'active';
     String remainingTime = '${43 - (i * 4)}h ${56 - (i * 7)} m';
     String? warning;
-    
+
     if (page == 0) {
       if (i == 0) {
         status = 'active';
@@ -95,7 +96,12 @@ List<Map<String, dynamic>> generateDummyMatchesInIsolate(int page) {
         remainingTime = 'Date Complete';
       }
     } else {
-      final List<String> randomStatuses = ['active', 'dateSet', 'dateComplete', 'cancelled'];
+      final List<String> randomStatuses = [
+        'active',
+        'dateSet',
+        'dateComplete',
+        'cancelled',
+      ];
       status = randomStatuses[i % randomStatuses.length];
     }
 
@@ -117,7 +123,8 @@ List<Map<String, dynamic>> generateDummyMatchesInIsolate(int page) {
       'dateDetails': customizedDateDetail,
       'isOnline': i % 2 == 0,
       'trustScore': 9.2 + ((idx % 7) * 0.1),
-      'bio': 'Coffee lover, spontaneous road tripper, and amateur photographer. Let’s beat the clock and plan a real date!',
+      'bio':
+          'Coffee lover, spontaneous road tripper, and amateur photographer. Let’s beat the clock and plan a real date!',
     });
   }
 

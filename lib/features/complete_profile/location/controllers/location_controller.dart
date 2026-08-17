@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:donnymaestro/core/logger/logger.dart';
 import 'package:donnymaestro/routes/app_routes.dart';
 import 'package:donnymaestro/features/complete_profile/common_controller/complete_profile_controller.dart';
+import 'package:logger_barta/logger_barta.dart';
 
 class LocationController extends GetxController {
   final RxBool isLoading = false.obs;
@@ -52,9 +53,8 @@ class LocationController extends GetxController {
       );
 
       AppLogger.dismiss();
-      AppLogger.consoleInfo(
-        title:
-            'Coordinates obtained: ${position.latitude}, ${position.longitude}',
+      BartaLog.debug(
+        'Coordinates obtained: ${position.latitude}, ${position.longitude}',
       );
       // Store in Common Controller for final API body
       commonController.setLocation(position.latitude, position.longitude);

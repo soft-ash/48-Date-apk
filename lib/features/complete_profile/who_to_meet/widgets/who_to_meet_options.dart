@@ -15,9 +15,7 @@ class WhoToMeetOptions extends GetView<WhoToMeetController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomHeader(
-          title: 'Who Are You Here To Meet?',
-        ),
+        const CustomHeader(title: 'Who Are You Here To Meet?'),
         SizedBox(height: 24.h),
         ...controller.options.map((option) {
           return Padding(

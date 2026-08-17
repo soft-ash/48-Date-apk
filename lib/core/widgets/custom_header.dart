@@ -31,7 +31,8 @@ class CustomHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: titleStyle ??
+          style:
+              titleStyle ??
               AppTextStyle.h5(
                 weight: AppTextStyle.bold,
               ).copyWith(color: AppColor.gray900),
@@ -41,7 +42,8 @@ class CustomHeader extends StatelessWidget {
           SizedBox(height: gap ?? 12.h),
           Text(
             subtitle!,
-            style: subtitleStyle ??
+            style:
+                subtitleStyle ??
                 AppTextStyle.bodySmall(
                   weight: AppTextStyle.regular,
                 ).copyWith(color: AppColor.gray700, height: 1.5),

@@ -51,16 +51,16 @@ class BottomNavbarScreen extends StatelessWidget {
           SizedBox(height: 16.h),
           Text(
             title,
-            style: AppTextStyle.h4(weight: AppTextStyle.bold).copyWith(
-              color: AppColor.gray900,
-            ),
+            style: AppTextStyle.h4(
+              weight: AppTextStyle.bold,
+            ).copyWith(color: AppColor.gray900),
           ),
           SizedBox(height: 8.h),
           Text(
             'Screen content will be attached here.',
-            style: AppTextStyle.bodySmall(weight: AppTextStyle.medium).copyWith(
-              color: AppColor.gray500,
-            ),
+            style: AppTextStyle.bodySmall(
+              weight: AppTextStyle.medium,
+            ).copyWith(color: AppColor.gray500),
           ),
         ],
       ),

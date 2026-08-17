@@ -42,8 +42,9 @@ class InterestOptions extends GetView<InterestController> {
                     final label = item['label']!;
                     final emoji = item['emoji']!;
                     return Obx(() {
-                      final isSelected =
-                          controller.selectedInterests.contains(label);
+                      final isSelected = controller.selectedInterests.contains(
+                        label,
+                      );
                       return GestureDetector(
                         onTap: () => controller.toggleInterest(label),
                         behavior: HitTestBehavior.opaque,
@@ -73,15 +74,16 @@ class InterestOptions extends GetView<InterestController> {
                               SizedBox(width: 6.w),
                               Text(
                                 label,
-                                style: AppTextStyle.bodyMedium(
-                                  weight: isSelected
-                                      ? AppTextStyle.medium
-                                      : AppTextStyle.regular,
-                                ).copyWith(
-                                  color: isSelected
-                                      ? Colors.white
-                                      : AppColor.gray800,
-                                ),
+                                style:
+                                    AppTextStyle.bodyMedium(
+                                      weight: isSelected
+                                          ? AppTextStyle.medium
+                                          : AppTextStyle.regular,
+                                    ).copyWith(
+                                      color: isSelected
+                                          ? Colors.white
+                                          : AppColor.gray800,
+                                    ),
                               ),
                             ],
                           ),
