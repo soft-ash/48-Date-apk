@@ -126,7 +126,10 @@ class PhotoGrid extends GetView<AddPhotoController> {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16.r),
-                        border: Border.all(color: AppColor.primary500, width: 2.0),
+                        border: Border.all(
+                          color: AppColor.primary500,
+                          width: 2.0,
+                        ),
                       ),
                     ),
                   ),

@@ -40,10 +40,7 @@ class CountryCodeSelector extends GetView<PhoneController> {
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
-                borderSide: const BorderSide(
-                  color: AppColor.gray300,
-                  width: 1,
-                ),
+                borderSide: const BorderSide(color: AppColor.gray300, width: 1),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),

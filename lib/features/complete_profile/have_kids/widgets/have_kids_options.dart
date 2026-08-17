@@ -16,16 +16,13 @@ class HaveKidsOptions extends GetView<HaveKidsController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Section 1: Do You Have Kids?
-        const CustomHeader(
-          title: 'Do You Have Kids?',
-        ),
+        const CustomHeader(title: 'Do You Have Kids?'),
         SizedBox(height: 20.h),
         ...controller.kidsOptions.map((option) {
           return Padding(
             padding: EdgeInsets.only(bottom: 12.h),
             child: Obx(() {
-              final isSelected =
-                  controller.selectedKidsOption.value == option;
+              final isSelected = controller.selectedKidsOption.value == option;
               return SelectionOptionCard(
                 text: option,
                 isSelected: isSelected,
@@ -40,8 +37,9 @@ class HaveKidsOptions extends GetView<HaveKidsController> {
         // Section 2: Future Plan About Kids?
         Text(
           'Do you have any future plan about kids?',
-          style: AppTextStyle.bodyLarge(weight: AppTextStyle.bold)
-              .copyWith(color: AppColor.gray900),
+          style: AppTextStyle.bodyLarge(
+            weight: AppTextStyle.bold,
+          ).copyWith(color: AppColor.gray900),
         ),
         SizedBox(height: 20.h),
         ...controller.futurePlanOptions.map((option) {

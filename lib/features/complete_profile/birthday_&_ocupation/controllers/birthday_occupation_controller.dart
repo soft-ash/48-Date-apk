@@ -4,6 +4,7 @@ import 'package:donnymaestro/core/logger/logger.dart';
 import 'package:donnymaestro/core/utils/picker.dart';
 import 'package:donnymaestro/features/complete_profile/common_controller/complete_profile_controller.dart';
 import 'package:donnymaestro/routes/app_routes.dart';
+import 'package:logger_barta/logger_barta.dart';
 
 class BirthdayOccupationController extends GetxController {
   final TextEditingController monthController = TextEditingController();
@@ -78,15 +79,18 @@ class BirthdayOccupationController extends GetxController {
       initialDate = null;
     }
 
-    final selectedDate = await AppPicker.showWheelDatePicker(context, initialDate: initialDate);
+    final selectedDate = await AppPicker.showWheelDatePicker(
+      context,
+      initialDate: initialDate,
+    );
     if (selectedDate != null) {
       monthController.text = selectedDate.month.toString().padLeft(2, '0');
       dayController.text = selectedDate.day.toString().padLeft(2, '0');
       yearController.text = selectedDate.year.toString();
       birthdayError.value = null;
-      AppLogger.consoleInfo(
-        title: "openWheelDatePicker",
-        subtitle: "Selected date: ${monthController.text}/${dayController.text}/${yearController.text}",
+      BartaLog.debug(
+        "Selected date: ${monthController.text}/${dayController.text}/${yearController.text}",
+        tag: "openWheelDatePicker",
       );
     }
   }
@@ -100,9 +104,9 @@ class BirthdayOccupationController extends GetxController {
     if (selected != null) {
       occupationController.text = selected;
       occupationError.value = null;
-      AppLogger.consoleInfo(
-        title: "onOccupationDropdownTapped",
-        subtitle: "Selected occupation: $selected",
+      BartaLog.debug(
+        "Selected occupation: $selected",
+        tag: "onOccupationDropdownTapped",
       );
     }
   }
@@ -122,9 +126,15 @@ class BirthdayOccupationController extends GetxController {
 
     int calculatedAge = 0;
 
-    if (month == null || month < 1 || month > 12 ||
-        day == null || day < 1 || day > 31 ||
-        year == null || year < 1900 || year > DateTime.now().year) {
+    if (month == null ||
+        month < 1 ||
+        month > 12 ||
+        day == null ||
+        day < 1 ||
+        day > 31 ||
+        year == null ||
+        year < 1900 ||
+        year > DateTime.now().year) {
       birthdayError.value = 'Please enter a valid birth date (MM/DD/YYYY)';
       hasError = true;
     } else {

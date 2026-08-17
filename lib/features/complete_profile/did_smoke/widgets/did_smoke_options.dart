@@ -15,9 +15,7 @@ class DidSmokeOptions extends GetView<DidSmokeController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomHeader(
-          title: 'Do You Smoke?',
-        ),
+        const CustomHeader(title: 'Do You Smoke?'),
         SizedBox(height: 24.h),
         ...controller.options.map((option) {
           return Padding(

@@ -11,4 +11,3 @@ class BottomNavbarBinding extends Bindings {
     Get.lazyPut<MatchesController>(() => MatchesController());
   }
 }
-
