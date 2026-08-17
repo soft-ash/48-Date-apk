@@ -20,13 +20,15 @@ class MatchDetailBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final details = match.dateDetails ??
+    final details =
+        match.dateDetails ??
         const DateDetailsModel(
           whereName: 'Amber & Oak Coffee',
           whenTime: 'Tomorrow 4:00 PM',
           gettingThere: '12 min • Directions available',
           matchPartnerHandle: 'GoldenHour',
-          matchPartnerAvatar: 'https://picsum.photos/seed/partner_amber/400/400',
+          matchPartnerAvatar:
+              'https://picsum.photos/seed/partner_amber/400/400',
         );
 
     return Container(
@@ -77,9 +79,9 @@ class MatchDetailBottomSheet extends StatelessWidget {
             // --- Title ---
             Text(
               "Date with ${details.matchPartnerHandle}",
-              style: AppTextStyle.h6(weight: AppTextStyle.bold).copyWith(
-                color: AppColor.gray900,
-              ),
+              style: AppTextStyle.h6(
+                weight: AppTextStyle.bold,
+              ).copyWith(color: AppColor.gray900),
             ),
             SizedBox(height: 20.h),
 
@@ -112,7 +114,7 @@ class MatchDetailBottomSheet extends StatelessWidget {
                     value: details.whenTime,
                   ),
                   _buildCardDivider(),
-                    _buildDetailRow(
+                  _buildDetailRow(
                     icon: Icons.navigation,
                     label: "GETTING THERE",
                     value: details.gettingThere,
@@ -205,17 +207,16 @@ class MatchDetailBottomSheet extends StatelessWidget {
             children: [
               Text(
                 label,
-                style: AppTextStyle.caption(weight: AppTextStyle.bold).copyWith(
-                  color: AppColor.gray500,
-                  letterSpacing: 0.5,
-                ),
+                style: AppTextStyle.caption(
+                  weight: AppTextStyle.bold,
+                ).copyWith(color: AppColor.gray500, letterSpacing: 0.5),
               ),
               SizedBox(height: 2.h),
               Text(
                 value,
-                style: AppTextStyle.bodyMedium(weight: AppTextStyle.bold).copyWith(
-                  color: AppColor.gray900,
-                ),
+                style: AppTextStyle.bodyMedium(
+                  weight: AppTextStyle.bold,
+                ).copyWith(color: AppColor.gray900),
               ),
             ],
           ),

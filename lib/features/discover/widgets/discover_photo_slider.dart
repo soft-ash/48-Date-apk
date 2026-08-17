@@ -17,7 +17,8 @@ class DiscoverPhotoSlider extends StatelessWidget {
       children: [
         for (int i = 0; i < postImages.length; i++) ...[
           GestureDetector(
-            onTap: () => DiscoverFullImageView.show(postImages, initialIndex: i),
+            onTap: () =>
+                DiscoverFullImageView.show(postImages, initialIndex: i),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20.r),
               child: AspectRatio(
@@ -53,4 +54,3 @@ class DiscoverPhotoSlider extends StatelessWidget {
     );
   }
 }
-

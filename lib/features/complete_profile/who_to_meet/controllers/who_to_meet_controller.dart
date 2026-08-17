@@ -7,11 +7,7 @@ class WhoToMeetController extends GetxController {
   final RxnString selectedOption = RxnString();
   final RxnString errorText = RxnString();
 
-  final List<String> options = [
-    'Women',
-    'Man',
-    'Everyone',
-  ];
+  final List<String> options = ['Women', 'Man', 'Everyone'];
 
   CompleteProfileController get commonController =>
       Get.find<CompleteProfileController>();

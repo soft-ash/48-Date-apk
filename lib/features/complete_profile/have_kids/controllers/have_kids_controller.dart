@@ -8,10 +8,7 @@ class HaveKidsController extends GetxController {
   final RxnString selectedFuturePlanOption = RxnString();
   final RxnString errorText = RxnString();
 
-  final List<String> kidsOptions = [
-    'I have Kids',
-    'Don’t have kids',
-  ];
+  final List<String> kidsOptions = ['I have Kids', 'Don’t have kids'];
 
   final List<String> futurePlanOptions = [
     'Yes Definitely i want kids.',

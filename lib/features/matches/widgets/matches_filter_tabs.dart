@@ -29,7 +29,8 @@ class MatchesFilterTabs extends StatelessWidget {
 
   Widget _buildTabItem(String tab, MatchesController controller) {
     return Obx(() {
-      final bool isSelected = controller.selectedFilter.value.toUpperCase() == tab.toUpperCase();
+      final bool isSelected =
+          controller.selectedFilter.value.toUpperCase() == tab.toUpperCase();
 
       return GestureDetector(
         onTap: () => controller.changeFilter(tab),
@@ -55,9 +56,7 @@ class MatchesFilterTabs extends StatelessWidget {
             tab,
             style: AppTextStyle.bodyMedium(
               weight: isSelected ? AppTextStyle.bold : AppTextStyle.medium,
-            ).copyWith(
-              color: isSelected ? Colors.white : AppColor.gray600,
-            ),
+            ).copyWith(color: isSelected ? Colors.white : AppColor.gray600),
           ),
         ),
       );

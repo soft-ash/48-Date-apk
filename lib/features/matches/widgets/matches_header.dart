@@ -22,24 +22,24 @@ class MatchesHeader extends StatelessWidget {
           children: [
             Text(
               "Your Matches",
-              style: AppTextStyle.h4(weight: AppTextStyle.bold).copyWith(
-                color: AppColor.gray900,
-              ),
+              style: AppTextStyle.h4(
+                weight: AppTextStyle.bold,
+              ).copyWith(color: AppColor.gray900),
             ),
             SizedBox(height: 4.h),
             Obx(() {
               final int count = controller.activeCount;
               return RichText(
                 text: TextSpan(
-                  style: AppTextStyle.bodySmall(weight: AppTextStyle.medium).copyWith(
-                    color: AppColor.gray600,
-                  ),
+                  style: AppTextStyle.bodySmall(
+                    weight: AppTextStyle.medium,
+                  ).copyWith(color: AppColor.gray600),
                   children: [
                     TextSpan(
                       text: "$count",
-                      style: AppTextStyle.bodySmall(weight: AppTextStyle.bold).copyWith(
-                        color: AppColor.primary500,
-                      ),
+                      style: AppTextStyle.bodySmall(
+                        weight: AppTextStyle.bold,
+                      ).copyWith(color: AppColor.primary500),
                     ),
                     const TextSpan(
                       text: " active · beat the clock and plan a real date.",

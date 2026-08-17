@@ -45,36 +45,36 @@ class SelectionOptionCard extends StatelessWidget {
                 children: [
                   Text(
                     text,
-                    style: AppTextStyle.bodyMedium(
-                      weight: isSelected
-                          ? AppTextStyle.medium
-                          : AppTextStyle.regular,
-                    ).copyWith(
-                      color:
-                          isSelected ? AppColor.primary500 : AppColor.gray800,
-                    ),
+                    style:
+                        AppTextStyle.bodyMedium(
+                          weight: isSelected
+                              ? AppTextStyle.medium
+                              : AppTextStyle.regular,
+                        ).copyWith(
+                          color: isSelected
+                              ? AppColor.primary500
+                              : AppColor.gray800,
+                        ),
                   ),
                   if (subtitle != null) ...[
                     SizedBox(height: 4.h),
                     Text(
                       subtitle!,
-                      style: AppTextStyle.bodySmall(
-                        weight: AppTextStyle.regular,
-                      ).copyWith(
-                        color:
-                            isSelected ? AppColor.gray700 : AppColor.gray500,
-                      ),
+                      style:
+                          AppTextStyle.bodySmall(
+                            weight: AppTextStyle.regular,
+                          ).copyWith(
+                            color: isSelected
+                                ? AppColor.gray700
+                                : AppColor.gray500,
+                          ),
                     ),
                   ],
                 ],
               ),
             ),
             if (isSelected)
-              Icon(
-                Icons.check_circle,
-                color: AppColor.primary500,
-                size: 22.sp,
-              ),
+              Icon(Icons.check_circle, color: AppColor.primary500, size: 22.sp),
           ],
         ),
       ),

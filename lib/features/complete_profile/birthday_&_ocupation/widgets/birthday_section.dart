@@ -20,8 +20,9 @@ class BirthdaySection extends StatelessWidget {
           title: 'When’s Your Birthday?',
           subtitle: 'You must be 18+. We show your age, never your exact date.',
           gap: 8.h,
-          subtitleStyle: AppTextStyle.bodySmall(weight: AppTextStyle.regular)
-              .copyWith(color: AppColor.gray600),
+          subtitleStyle: AppTextStyle.bodySmall(
+            weight: AppTextStyle.regular,
+          ).copyWith(color: AppColor.gray600),
         ),
         SizedBox(height: 20.h),
         Obx(() {

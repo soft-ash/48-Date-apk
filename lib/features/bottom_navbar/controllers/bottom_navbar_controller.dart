@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:donnymaestro/core/logger/logger.dart';
+import 'package:logger_barta/logger_barta.dart';
 
 class BottomNavbarController extends GetxController {
   final RxInt currentIndex = 0.obs;
@@ -11,9 +11,6 @@ class BottomNavbarController extends GetxController {
     HapticFeedback.lightImpact();
     currentIndex.value = index;
 
-    AppLogger.consoleInfo(
-      title: "Tab Changed",
-      subtitle: "Switched to tab index: $index",
-    );
+    BartaLog.debug("Switched to tab index: $index", tag: "Tab Changed");
   }
 }
