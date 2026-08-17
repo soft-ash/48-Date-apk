@@ -8,10 +8,7 @@ import 'package:donnymaestro/core/widgets/fade_in_up.dart';
 class MatchesEmptyView extends StatelessWidget {
   final VoidCallback onRefresh;
 
-  const MatchesEmptyView({
-    super.key,
-    required this.onRefresh,
-  });
+  const MatchesEmptyView({super.key, required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +37,9 @@ class MatchesEmptyView extends StatelessWidget {
               SizedBox(height: 20.h),
               Text(
                 "No Matches Yet",
-                style: AppTextStyle.h6(weight: AppTextStyle.bold).copyWith(
-                  color: AppColor.gray900,
-                ),
+                style: AppTextStyle.h6(
+                  weight: AppTextStyle.bold,
+                ).copyWith(color: AppColor.gray900),
               ),
               SizedBox(height: 8.h),
               Text(
