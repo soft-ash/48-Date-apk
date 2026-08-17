@@ -44,7 +44,9 @@ class DiscoverCard extends StatelessWidget {
         final double tintOpacity = (dx.abs() / 180.0).clamp(0.0, 0.3);
 
         return AnimatedContainer(
-          duration: dragging ? Duration.zero : const Duration(milliseconds: 320),
+          duration: dragging
+              ? Duration.zero
+              : const Duration(milliseconds: 320),
           curve: Curves.easeOutBack,
           transform: Matrix4.translationValues(dx, dy, 0)
             ..rotateZ(angle)
@@ -61,8 +63,9 @@ class DiscoverCard extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(24.r),
                       child: ColoredBox(
-                        color: (isLike ? AppColor.success500 : AppColor.error500)
-                            .withValues(alpha: tintOpacity),
+                        color:
+                            (isLike ? AppColor.success500 : AppColor.error500)
+                                .withValues(alpha: tintOpacity),
                       ),
                     ),
                   ),

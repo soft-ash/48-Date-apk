@@ -512,6 +512,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.0"
+  logger_barta:
+    dependency: "direct main"
+    description:
+      name: logger_barta
+      sha256: "774f079de4702da3d4a3c320b766470f85b8870652512aef1ac87fc3a33df3d9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   logging:
     dependency: transitive
     description:

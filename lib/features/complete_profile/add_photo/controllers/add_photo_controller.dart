@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:donnymaestro/core/logger/logger.dart';
 import 'package:donnymaestro/features/complete_profile/common_controller/complete_profile_controller.dart';
 import 'package:donnymaestro/routes/app_routes.dart';
+import 'package:logger_barta/logger_barta.dart';
 
 class AddPhotoController extends GetxController {
   // Exactly 6 slots for photos
@@ -24,9 +25,9 @@ class AddPhotoController extends GetxController {
       if (image != null) {
         photoSlots[index] = image.path;
         errorText.value = null;
-        AppLogger.consoleInfo(
-          title: "pickPhoto",
-          subtitle: "Added photo to slot $index: ${image.path}",
+        BartaLog.debug(
+          "Added photo to slot $index: ${image.path}",
+          tag: "pickPhoto",
         );
       }
     } catch (e) {
@@ -36,10 +37,7 @@ class AddPhotoController extends GetxController {
 
   void removePhoto(int index) {
     photoSlots[index] = null;
-    AppLogger.consoleInfo(
-      title: "removePhoto",
-      subtitle: "Removed photo from slot $index",
-    );
+    BartaLog.debug("Removed photo from slot $index", tag: "removePhoto");
   }
 
   void onContinuePressed() {

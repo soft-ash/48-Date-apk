@@ -25,10 +25,7 @@ class DiscoverInterestChip extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (interest.icon != null && interest.icon!.isNotEmpty) ...[
-            Text(
-              interest.icon!,
-              style: TextStyle(fontSize: 14.sp),
-            ),
+            Text(interest.icon!, style: TextStyle(fontSize: 14.sp)),
             SizedBox(width: 6.w),
           ],
           Text(

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../../../../core/logger/logger.dart';
 import '../../../../routes/app_routes.dart';
 import '../../phone/controller/phone_controller.dart';
+import 'package:logger_barta/logger_barta.dart';
 
 class OtpController extends GetxController {
   final TextEditingController pinController = TextEditingController();
@@ -69,7 +70,7 @@ class OtpController extends GetxController {
       return;
     }
 
-    AppLogger.consoleInfo(title: 'Verifying OTP: ${pinController.text}');
+    BartaLog.debug('Verifying OTP: ${pinController.text}');
     AppLogger.loading(status: 'Verifying...');
 
     Future.delayed(const Duration(seconds: 2), () {
@@ -80,7 +81,7 @@ class OtpController extends GetxController {
   }
 
   void resendOtp() {
-    AppLogger.consoleInfo(title: 'Resending OTP to $formattedPhoneNumber');
+    BartaLog.debug('Resending OTP to $formattedPhoneNumber');
     AppLogger.loading(status: 'Resending...');
 
     Future.delayed(const Duration(seconds: 1), () {
