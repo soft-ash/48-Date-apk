@@ -15,9 +15,7 @@ class IdentifyOptions extends GetView<IdentifyController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomHeader(
-          title: 'How Do You Identify?',
-        ),
+        const CustomHeader(title: 'How Do You Identify?'),
         SizedBox(height: 24.h),
         ...controller.options.map((option) {
           return Padding(
