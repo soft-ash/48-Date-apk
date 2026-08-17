@@ -18,8 +18,9 @@ class OccupationSection extends StatelessWidget {
       children: [
         CustomHeader(
           title: 'What is Your Occupation?',
-          titleStyle: AppTextStyle.h6(weight: AppTextStyle.bold)
-              .copyWith(color: AppColor.gray900),
+          titleStyle: AppTextStyle.h6(
+            weight: AppTextStyle.bold,
+          ).copyWith(color: AppColor.gray900),
         ),
         SizedBox(height: 16.h),
         Obx(() {
@@ -42,11 +43,21 @@ class OccupationSection extends StatelessWidget {
                 onChanged: (_) => controller.occupationError.value = null,
                 decoration: InputDecoration(
                   hintText: 'Select or enter your occupation',
-                  hintStyle: const TextStyle(color: AppColor.gray400, fontSize: 14),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                  hintStyle: const TextStyle(
+                    color: AppColor.gray400,
+                    fontSize: 14,
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 14.h,
+                  ),
                   suffixIcon: IconButton(
-                    onPressed: () => controller.onOccupationDropdownTapped(context),
-                    icon: const Icon(Icons.keyboard_arrow_down, color: AppColor.gray600),
+                    onPressed: () =>
+                        controller.onOccupationDropdownTapped(context),
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: AppColor.gray600,
+                    ),
                     tooltip: "Choose from list",
                   ),
                   enabledBorder: OutlineInputBorder(

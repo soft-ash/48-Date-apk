@@ -7,11 +7,7 @@ class DiscoverLoadingCard extends StatelessWidget {
   final bool isEmpty;
   final VoidCallback? onRefresh;
 
-  const DiscoverLoadingCard({
-    super.key,
-    this.isEmpty = false,
-    this.onRefresh,
-  });
+  const DiscoverLoadingCard({super.key, this.isEmpty = false, this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +35,12 @@ class DiscoverLoadingCard extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           Text(
-            isEmpty ? 'No more profiles nearby' : 'Finding matches around you...',
-            style: AppTextStyle.h5(weight: AppTextStyle.bold).copyWith(
-              color: AppColor.gray900,
-            ),
+            isEmpty
+                ? 'No more profiles nearby'
+                : 'Finding matches around you...',
+            style: AppTextStyle.h5(
+              weight: AppTextStyle.bold,
+            ).copyWith(color: AppColor.gray900),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 8.h),
@@ -50,9 +48,9 @@ class DiscoverLoadingCard extends StatelessWidget {
             isEmpty
                 ? 'Check back soon or expand your distance filter to see more people.'
                 : 'Please wait while we prepare new profiles.',
-            style: AppTextStyle.bodyMedium(weight: AppTextStyle.regular).copyWith(
-              color: AppColor.gray500,
-            ),
+            style: AppTextStyle.bodyMedium(
+              weight: AppTextStyle.regular,
+            ).copyWith(color: AppColor.gray500),
             textAlign: TextAlign.center,
           ),
           if (isEmpty && onRefresh != null) ...[
@@ -68,9 +66,9 @@ class DiscoverLoadingCard extends StatelessWidget {
               ),
               child: Text(
                 'Refresh Profiles',
-                style: AppTextStyle.bodyMedium(weight: AppTextStyle.bold).copyWith(
-                  color: AppColor.whiteColor,
-                ),
+                style: AppTextStyle.bodyMedium(
+                  weight: AppTextStyle.bold,
+                ).copyWith(color: AppColor.whiteColor),
               ),
             ),
           ],

@@ -107,7 +107,9 @@ class MatchModel {
       remainingTimeText: json['remainingTimeText'] as String? ?? '',
       warningText: json['warningText'] as String?,
       dateDetails: json['dateDetails'] != null
-          ? DateDetailsModel.fromJson(json['dateDetails'] as Map<String, dynamic>)
+          ? DateDetailsModel.fromJson(
+              json['dateDetails'] as Map<String, dynamic>,
+            )
           : null,
       isOnline: json['isOnline'] as bool? ?? false,
       trustScore: (json['trustScore'] as num?)?.toDouble() ?? 9.5,
